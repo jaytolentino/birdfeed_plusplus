@@ -16,7 +16,7 @@ import com.codepath.apps.birdfeed.fragments.TweetListFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class TweetDetailActivity extends FragmentActivity {
+public class TweetDetailActivity extends BaseActivity {
     private Tweet tweet;
     private ImageView ivDetailProfilePic;
     private ImageView ivDetailBackground;
@@ -55,12 +55,6 @@ public class TweetDetailActivity extends FragmentActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
     }
 
     public void onReply(View view) {

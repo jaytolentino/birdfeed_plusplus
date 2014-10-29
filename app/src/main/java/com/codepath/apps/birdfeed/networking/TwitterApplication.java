@@ -1,6 +1,7 @@
 package com.codepath.apps.birdfeed.networking;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 
 import com.activeandroid.ActiveAndroid;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

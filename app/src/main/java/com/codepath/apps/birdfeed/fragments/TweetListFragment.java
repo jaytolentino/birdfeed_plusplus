@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.activities.BaseActivity;
 import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 import com.codepath.apps.birdfeed.adapters.TweetsAdapter;
@@ -53,7 +54,7 @@ public class TweetListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
         initializeMemberVariables(v);
-        List<Tweet> savedTweets = Tweet.getAll();
+        List<Tweet> savedTweets = Tweet.getRecentlySaved();
         if (!savedTweets.isEmpty()) {
             aTweets.addAll(savedTweets);
             earliestId = String.valueOf(aTweets.getItem(tweets.size() - 1).getTweetId());
@@ -166,10 +167,10 @@ public class TweetListFragment extends Fragment {
     }
 
     public void startProgressBar() {
-        ProgressBarHandler.showProgressBar(getActivity());
+        ((BaseActivity) getActivity()).showProgressBar();
     }
 
     public void stopProgressBar() {
-        ProgressBarHandler.hideProgressBar(getActivity());
+        ((BaseActivity) getActivity()).hideProgressBar();
     }
 }

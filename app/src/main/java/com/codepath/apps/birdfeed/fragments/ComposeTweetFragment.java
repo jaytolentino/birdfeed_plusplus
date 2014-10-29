@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.activities.BaseActivity;
 import com.codepath.apps.birdfeed.activities.FeedActivity;
 import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
 import com.codepath.apps.birdfeed.models.Tweet;
@@ -102,7 +103,7 @@ public class ComposeTweetFragment extends DialogFragment {
 
     private void sendTweet() {
         String tweetContent = etComposeTweet.getText().toString();
-        ProgressBarHandler.showProgressBar(getActivity());
+        ((BaseActivity) getActivity()).showProgressBar();
 
         client.postNewTweet(tweetContent, new JsonHttpResponseHandler() {
             @Override
@@ -122,7 +123,7 @@ public class ComposeTweetFragment extends DialogFragment {
     private void sendReply() {
         String tweetOnly = etComposeTweet.getText().toString();
         String tweetContent = "@" + tweet.getUser().getUsername() + " " + tweetOnly;
-        ProgressBarHandler.showProgressBar(getActivity());
+        ((BaseActivity) getActivity()).showProgressBar();
 
         client.postReplyTweet(tweetContent, tweet.getTweetId(), new JsonHttpResponseHandler() {
             @Override
