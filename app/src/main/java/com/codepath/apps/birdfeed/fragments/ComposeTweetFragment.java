@@ -107,7 +107,7 @@ public class ComposeTweetFragment extends DialogFragment {
         client.postNewTweet(tweetContent, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
-                ((FeedActivity) getActivity()).refreshTimeline();
+                ((HomeTimelineFragment) getParentFragment()).refreshTimeline();
                 getDialog().dismiss();
             }
 

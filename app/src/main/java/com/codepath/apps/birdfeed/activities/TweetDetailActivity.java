@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
+import com.codepath.apps.birdfeed.fragments.TweetListFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -116,8 +117,8 @@ public class TweetDetailActivity extends FragmentActivity {
     }
 
     private void createTweetAtPosition(int tweetPosition) {
-        if (FeedActivity.hasTweets()) {
-            tweet = FeedActivity.getTweet(tweetPosition);
+        if (TweetListFragment.hasTweets()) {
+            tweet = TweetListFragment.getTweet(tweetPosition);
         } else {
             throw new NullPointerException("Tweets deleted after process killed.");
         }
