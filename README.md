@@ -4,8 +4,15 @@ And you thought the last Birdfeed was good :smirk:
 
 ## User Stories
 
+### Completed stories...
 __Required:__
-* All userstories from the [last assignment](https://github.com/jaytolentino/birdfeed)
+* All user stories from the [last assignment](https://github.com/jaytolentino/birdfeed)
+
+- - -
+
+### To complete...
+
+__Required:__
 * User can switch between Timeline and Mention views using tabs.
   * User can view their home timeline tweets.
   * User can view the recent mentions of their username.

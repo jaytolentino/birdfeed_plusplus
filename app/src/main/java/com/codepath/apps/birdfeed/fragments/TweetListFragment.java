@@ -19,7 +19,6 @@ import com.codepath.apps.birdfeed.adapters.TweetsAdapter;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
-import com.codepath.apps.birdfeed.utils.ProgressBarHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.commons.collections4.ListUtils;
@@ -42,11 +41,9 @@ public class TweetListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // creates non-view logic
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsAdapter(getActivity(), tweets);
         client = TwitterApplication.getRestClient();
-
         super.onCreate(savedInstanceState);
     }
 
@@ -54,15 +51,8 @@ public class TweetListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_tweets_list, container, false);
         initializeMemberVariables(v);
-        List<Tweet> savedTweets = Tweet.getRecentlySaved();
-        if (!savedTweets.isEmpty()) {
-            aTweets.addAll(savedTweets);
-            earliestId = String.valueOf(aTweets.getItem(tweets.size() - 1).getTweetId());
-            Log.d("debug", "Added " + savedTweets.size() + " saved tweets");
-        }
         return v;
     }
-
 
     private void initializeMemberVariables(View view) {
         lvTweets = (ListView) view.findViewById(R.id.lvTweets);
@@ -123,6 +113,8 @@ public class TweetListFragment extends Fragment {
                 android.R.color.holo_red_light);
     }
 
+    // TODO: get rid of repeated error handling code when checking for net connection
+    // TODO: refreshFeed() vs refreshTimeline()... -_-
     private void refreshFeed() {
         if (!aTweets.isEmpty()) {
             String mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());

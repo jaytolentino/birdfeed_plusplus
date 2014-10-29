@@ -1,7 +1,11 @@
 package com.codepath.apps.birdfeed.activities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Window;
 
 /**
@@ -22,5 +26,6 @@ public class BaseActivity extends ActionBarActivity {
     public void hideProgressBar() {
         this.setProgressBarIndeterminateVisibility(false);
     }
+    // TODO catches NoInternetConnectivity and displays alert to user?
 
 }

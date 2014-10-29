@@ -2,7 +2,6 @@ package com.codepath.apps.birdfeed.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
-
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
@@ -31,7 +30,7 @@ public class MentionsTimelineFragment extends TweetListFragment {
 
     private void populateTimeline() {
         startProgressBar();
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
+        client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONArray json) {
                 addAll(Tweet.fromJSONArray(json));

@@ -2,14 +2,15 @@ package com.codepath.apps.birdfeed.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.json.JSONArray;
 
 import java.util.List;
+
 
 /**
  * Created by jay on 10/28/14.
@@ -21,12 +22,13 @@ public class HomeTimelineFragment extends TweetListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
-        populateTimeline();
+        loadRecentlySavedTweets();
     }
 
     // TODO used for refreshing after composing/sending tweet, but using getActivity :( from ComposeTweetFragment - line 110
     public void refreshTimeline() {
         clearAll();
+        loadRecentlySavedTweets(); // TODO differentiate between mentions and home saves!
         populateTimeline();
     }
 
@@ -47,5 +49,14 @@ public class HomeTimelineFragment extends TweetListFragment {
                 Log.d("debug", s);
             }
         });
+    }
+
+    private void loadRecentlySavedTweets() {
+        List<Tweet> savedTweets = Tweet.getRecentlySaved();
+        if (!savedTweets.isEmpty()) {
+            addAll(savedTweets);
+            setEarliestId();
+            Log.d("debug", "Added " + savedTweets.size() + " saved tweets");
+        }
     }
 }

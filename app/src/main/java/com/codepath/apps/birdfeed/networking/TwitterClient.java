@@ -54,6 +54,14 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
+    // TODO include max_id to get pagination (e.g. see getHomeTimelinw(earliestId, handler))
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+
+        Log.d("DEBUG", "GET " + apiUrl);
+        client.get(apiUrl, null, handler);
+    }
+
     public void getNewTimelineItems(String mostRecentId, AsyncHttpResponseHandler handler){
         String apiUrl = getApiUrl("statuses/home_timeline.json");
         RequestParams params = new RequestParams();
