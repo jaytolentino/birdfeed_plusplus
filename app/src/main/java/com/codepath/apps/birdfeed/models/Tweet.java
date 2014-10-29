@@ -79,7 +79,6 @@ public class Tweet extends Model implements Serializable {
                 tweet.mediaUrl = null;
             }
             long result = tweet.save();
-            Log.d("debug", "Saved tweet " + tweet.tweetId + " with mId: " + result);
         }
         catch (JSONException e) {
             e.printStackTrace();
@@ -168,10 +167,11 @@ public class Tweet extends Model implements Serializable {
         }
     }
 
-    public static List<Tweet> getAll() {
+    public static List<Tweet> getRecentlySaved() {
         return new Select()
                 .from(Tweet.class)
                 .limit(20)
+                .orderBy("tweet_id DESC")
                 .execute();
     }
 }
