@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <attr name="actionBarDivider" format="reference" />
@@ -78,7 +78,7 @@
     <color name="abc_search_url_text_normal">#7fa87f</color>
     <color name="abc_search_url_text_pressed">@android:color/black</color>
     <color name="abc_search_url_text_selected">@android:color/black</color>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/colors.xml -->
     <eat-comment />
 
     <color name="bg_transparent_white">#eeffffff</color>
@@ -86,7 +86,7 @@
     <color name="twitter_blue">#55ACEE</color>
     <color name="twitter_gray">#8899a6</color>
     <color name="twitter_white">#f5f8fa</color>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <declare-styleable name="ActionBar">
@@ -518,19 +518,19 @@
     <dimen name="abc_panel_menu_list_width">296dp</dimen>
     <dimen name="abc_search_view_preferred_width">320dip</dimen>
     <dimen name="abc_search_view_text_min_width">160dip</dimen>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
     <item name="dialog_fixed_width_major" type="dimen">320dp</item>
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="image_profile">40dp</dimen>
@@ -543,7 +543,7 @@
     <dimen name="textsize_large">20dp</dimen>
     <dimen name="textsize_small">12dp</dimen>
     <dimen name="textsize_xlarge">24dp</dimen>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <item name="action_bar_activity_content" type="id"/>
@@ -568,7 +568,7 @@
     <string name="abc_searchview_description_voice">Voice search</string>
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="action_settings">Settings</string>
@@ -593,7 +593,7 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_reply">Reply?</string>
     <string name="title_retweet">Retweet</string>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="AppBaseTheme" parent="android:Theme.Light">
@@ -616,7 +616,7 @@
     <style name="MyActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/twitter_white</item>
     </style>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <style name="TextAppearance.AppCompat.Base.CompactMenu.Dialog" parent="android:TextAppearance.Medium">
@@ -1038,13 +1038,13 @@
     <style name="Theme.Base.AppCompat.Light.DialogWhenLarge" parent="Theme.Base.AppCompat.Light" />
 
     <style name="Theme.Base.Light" parent="android:Theme.Light" />
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="TwitterTheme" parent="@style/Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
-    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
+    <!-- From: file:/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/res/values/values.xml -->
     <eat-comment />
 
     <style name="Widget.AppCompat.ActionBar" parent="Widget.AppCompat.Base.ActionBar" />

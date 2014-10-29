@@ -2,9 +2,9 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/src/androidTest/res" />
-        <source path="/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/generated/res/rs/test/debug" />
-        <source path="/Users/jay/AndroidStudioProjects/CodePath/Birdfeed/app/build/generated/res/generated/test/debug" />
+        <source path="/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/src/androidTest/res" />
+        <source path="/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/generated/res/rs/test/debug" />
+        <source path="/Users/jay/AndroidStudioProjects/CodePath/birdfeed_plusplus/app/build/generated/res/generated/test/debug" />
     </dataSet>
 
 </merger>
