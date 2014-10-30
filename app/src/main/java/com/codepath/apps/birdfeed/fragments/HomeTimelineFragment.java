@@ -2,10 +2,12 @@ package com.codepath.apps.birdfeed.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 import com.codepath.apps.birdfeed.models.Tweet;
@@ -21,6 +23,7 @@ import java.util.List;
  * Created by jay on 10/28/14.
  */
 public class HomeTimelineFragment extends TweetListFragment {
+    private String mostRecentId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,25 +48,18 @@ public class HomeTimelineFragment extends TweetListFragment {
     }
 
     @Override
-    protected void setupTweetClick() {
-//        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                Intent tweetDetailView = new Intent(getActivity(), TweetDetailActivity.class);
-//                tweetDetailView.putExtra("tweetPosition", position);
-//                startActivity(tweetDetailView);
-//            }
-//        });
-    }
-
-    @Override
     protected void setupSwipeContainer(View view) {
-
-    }
-
-    @Override
-    protected void refreshFeed() {
-
+        super.setupSwipeContainer(view);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!aTweets.isEmpty()) {
+                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
+                    Log.d("debug", "Began refreshing feed");
+                    client.getNewHomeItems(mostRecentId, new RefreshWithNewItemsJsonHandler());
+                }
+            }
+        });
     }
 
     @Override
@@ -72,7 +68,9 @@ public class HomeTimelineFragment extends TweetListFragment {
     }
 
     @Override
-    protected void refreshTimeline() {
-
+    public void refreshTimeline() {
+        clearAll();
+        // loadRecentlySavedTweets();
+        populateTimeline();
     }
 }

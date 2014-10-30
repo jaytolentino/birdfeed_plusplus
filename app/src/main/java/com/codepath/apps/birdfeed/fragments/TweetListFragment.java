@@ -33,10 +33,10 @@ import java.util.List;
 public abstract class TweetListFragment extends Fragment {
     protected TwitterClient client;
     protected static ArrayList<Tweet> tweets;
-    private TweetsAdapter aTweets;
+    protected TweetsAdapter aTweets;
     protected ListView lvTweets;
     protected String earliestId;
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public abstract class TweetListFragment extends Fragment {
         lvTweets = (ListView) v.findViewById(R.id.lvTweets);
         lvTweets.setAdapter(aTweets);
         setupTweetScroll();
-//        setupTweetClick();
-//        setupSwipeContainer(v);
+        setupTweetClick();
+        setupSwipeContainer(v);
         populateTimeline();
         return v;
     }
@@ -65,59 +65,25 @@ public abstract class TweetListFragment extends Fragment {
 
     protected abstract void setupTweetScroll();
 
-    protected abstract void setupTweetClick();
-//    {
-//        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                Intent tweetDetailView = new Intent(getActivity(), TweetDetailActivity.class);
-//                tweetDetailView.putExtra("tweetPosition", position);
-//                startActivity(tweetDetailView);
-//            }
-//        });
-//    }
+    protected void setupTweetClick() {
+        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent tweetDetailView = new Intent(getActivity(), TweetDetailActivity.class);
+                tweetDetailView.putExtra("tweetPosition", position);
+                startActivity(tweetDetailView);
+            }
+        });
+    }
 
-    protected abstract void setupSwipeContainer(View view);
-//    {
-//        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                refreshFeed();
-//            }
-//        });
-//        swipeContainer.setColorScheme(
-//                android.R.color.holo_blue_bright,
-//                android.R.color.holo_green_light,
-//                android.R.color.holo_orange_light,
-//                android.R.color.holo_red_light);
-//    }
-
-    // TODO: get rid of repeated error handling code when checking for net connection
-    // TODO: refreshFeed() vs refreshTimeline()... -_-
-    protected abstract void refreshFeed();
-//    {
-//        if (!aTweets.isEmpty()) {
-//            String mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
-//            Log.d("debug", "Began refreshing feed");
-//            client.getNewTimelineItems(mostRecentId, new JsonHttpResponseHandler() {
-//                @Override //TODO refactor?
-//                public void onSuccess(JSONArray json) {
-//                    List<Tweet> refreshedTweets = ListUtils.union(Tweet.fromJSONArray(json), tweets);
-//                    aTweets.clear();
-//                    addAll(refreshedTweets);
-//                    swipeContainer.setRefreshing(false);
-//                    Log.d("debug", "Finished refreshing feed");
-//                }
-//
-//                @Override
-//                public void onFailure(Throwable throwable, String s) {
-//                    Log.d("debug", throwable.toString());
-//                    Log.d("debug", s);
-//                }
-//            });
-//        }
-//    }
+    protected void setupSwipeContainer(View view) {
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorScheme(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
 
     protected abstract void loadRecentlySavedTweets();
 //    {
@@ -129,13 +95,7 @@ public abstract class TweetListFragment extends Fragment {
 //        }
 //    }
 
-    // TODO used for refreshing after composing/sending tweet, but using getActivity :( from ComposeTweetFragment - line 110
-    protected abstract void refreshTimeline();
-//    {
-//        clearAll();
-//        loadRecentlySavedTweets(); // TODO differentiate between mentions and home saves!
-//        populateTimeline();
-//    }
+    public abstract void refreshTimeline();
 
     public static boolean hasTweets() {
         return tweets != null;
@@ -183,6 +143,25 @@ public abstract class TweetListFragment extends Fragment {
             aTweets.addAll(Tweet.fromJSONArray(json));
             setEarliestId();
             Log.d("debug", "Finished loading endless scroll");
+        }
+
+        @Override
+        public void onFailure(Throwable throwable, String s) {
+            Log.d("debug", throwable.toString());
+            Log.d("debug", s);
+        }
+    }
+
+    protected class RefreshWithNewItemsJsonHandler extends JsonHttpResponseHandler{
+        @Override //TODO refactor?
+        public void onSuccess(JSONArray json) {
+            Log.d("debug", "Size of original tweets: " + tweets.size());
+            List<Tweet> refreshedTweets = ListUtils.union(Tweet.fromJSONArray(json), tweets);
+            Log.d("debug", "Size of refreshed tweets: " + refreshedTweets.size());
+            aTweets.clear();
+            aTweets.addAll(refreshedTweets);
+            swipeContainer.setRefreshing(false);
+            Log.d("debug", "Finished refreshing feed");
         }
 
         @Override

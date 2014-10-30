@@ -1,6 +1,7 @@
 package com.codepath.apps.birdfeed.activities;
 
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,8 +12,10 @@ import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
 import com.codepath.apps.birdfeed.fragments.HomeTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.SupportFragmentTabListener;
+import com.codepath.apps.birdfeed.fragments.TweetListFragment;
 
-public class FeedActivity extends BaseActivity {
+public class FeedActivity extends BaseActivity
+        implements ComposeTweetFragment.RefreshTimelineListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +76,12 @@ public class FeedActivity extends BaseActivity {
                         MentionsTimelineFragment.class));
 
         actionBar.addTab(mentionsTimeline);
+    }
+
+    @Override
+    public void refreshTimeline() {
+        TweetListFragment tweetListFragment = (TweetListFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
+        tweetListFragment.refreshTimeline();
     }
 }

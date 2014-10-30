@@ -1,6 +1,7 @@
 package com.codepath.apps.birdfeed.fragments;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 
@@ -10,12 +11,16 @@ import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.apache.commons.collections4.ListUtils;
 import org.json.JSONArray;
+
+import java.util.List;
 
 /**
  * Created by jay on 10/29/14.
  */
 public class MentionsTimelineFragment extends TweetListFragment {
+    private String mostRecentId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,18 +45,18 @@ public class MentionsTimelineFragment extends TweetListFragment {
     }
 
     @Override
-    protected void setupTweetClick() {
-
-    }
-
-    @Override
     protected void setupSwipeContainer(View view) {
-
-    }
-
-    @Override
-    protected void refreshFeed() {
-
+        super.setupSwipeContainer(view);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!aTweets.isEmpty()) {
+                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
+                    Log.d("debug", "Began refreshing feed");
+                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler());
+                }
+            }
+        });
     }
 
     @Override
@@ -60,7 +65,9 @@ public class MentionsTimelineFragment extends TweetListFragment {
     }
 
     @Override
-    protected void refreshTimeline() {
-
+    public void refreshTimeline() {
+        clearAll();
+        // loadRecentlySavedTweets(); TODO this is the SAME in HomeTimeline! Reuse?
+        populateTimeline();
     }
 }

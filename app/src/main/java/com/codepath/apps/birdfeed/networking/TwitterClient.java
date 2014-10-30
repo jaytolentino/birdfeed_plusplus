@@ -68,8 +68,17 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getNewTimelineItems(String mostRecentId, AsyncHttpResponseHandler handler){
+    public void getNewHomeItems(String mostRecentId, AsyncHttpResponseHandler handler){
         String apiUrl = getApiUrl("statuses/home_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("since_id", mostRecentId);
+
+        Log.d("DEBUG", "GET " + apiUrl + ", SINCE_ID: " + mostRecentId);
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getNewMentionItems(String mostRecentId, AsyncHttpResponseHandler handler){
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
         RequestParams params = new RequestParams();
         params.put("since_id", mostRecentId);
 

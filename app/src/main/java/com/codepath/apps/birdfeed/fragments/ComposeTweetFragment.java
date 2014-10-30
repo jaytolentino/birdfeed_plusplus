@@ -1,5 +1,6 @@
 package com.codepath.apps.birdfeed.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class ComposeTweetFragment extends DialogFragment {
     private TextView tvCounter;
     private TextWatcher mComposeWatcher;
     private Tweet tweet;
+    private RefreshTimelineListener refreshTimelineListener;
 
     public static ComposeTweetFragment newInstance(String title) {
         ComposeTweetFragment fragment = new ComposeTweetFragment();
@@ -80,6 +82,17 @@ public class ComposeTweetFragment extends DialogFragment {
 
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof RefreshTimelineListener) {
+            refreshTimelineListener = (RefreshTimelineListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ComposeTweetFragment.RefreshTimelineListener");
+        }
+    }
+
     private void setupViews(View view) {
         mComposeWatcher = new TextWatcher() {
             @Override
@@ -108,7 +121,7 @@ public class ComposeTweetFragment extends DialogFragment {
         client.postNewTweet(tweetContent, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
-                ((HomeTimelineFragment) getParentFragment()).refreshTimeline();
+                ((TweetListFragment) getParentFragment()).refreshTimeline();
                 getDialog().dismiss();
             }
 
@@ -138,5 +151,9 @@ public class ComposeTweetFragment extends DialogFragment {
                 Log.d("debug", s);
             }
         });
+    }
+
+    public interface RefreshTimelineListener {
+        public void refreshTimeline();
     }
 }
