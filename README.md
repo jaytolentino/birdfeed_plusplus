@@ -11,6 +11,7 @@ __Required:__
   * User can view their home timeline tweets.
   * User can view the recent mentions of their username.
   * User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
+* Optional: Implement tabs in a gingerbread-compatible approach
 
 - - -
 
@@ -25,7 +26,6 @@ __Required:__
 
 
 _Optional:_
-* Optional: Implement tabs in a gingerbread-compatible approach
 * Optional: User can view following / followers list through the profile
 * Advanced: Robust error handling, check if internet is available, handle error cases, network failures
 * Advanced: When a network request is sent, user sees an indeterminate progress indicator
