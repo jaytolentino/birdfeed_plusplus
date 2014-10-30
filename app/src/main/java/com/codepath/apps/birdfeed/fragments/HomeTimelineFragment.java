@@ -1,8 +1,13 @@
 package com.codepath.apps.birdfeed.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
+import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
+import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
@@ -16,47 +21,58 @@ import java.util.List;
  * Created by jay on 10/28/14.
  */
 public class HomeTimelineFragment extends TweetListFragment {
-    private TwitterClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        client = TwitterApplication.getRestClient();
-        loadRecentlySavedTweets();
     }
 
-    // TODO used for refreshing after composing/sending tweet, but using getActivity :( from ComposeTweetFragment - line 110
-    public void refreshTimeline() {
-        clearAll();
-        loadRecentlySavedTweets(); // TODO differentiate between mentions and home saves!
-        populateTimeline();
+    @Override
+    protected void populateTimeline() {
+        super.populateTimeline();
+        client.getHomeTimeline(new TimelineJsonHandler());
     }
 
-    private void populateTimeline() {
-        startProgressBar();
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
+    @Override
+    protected void setupTweetScroll() {
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
-            public void onSuccess(JSONArray json) {
-                addAll(Tweet.fromJSONArray(json));
-                setEarliestId();
-                Log.d("debug", "Finished populating feed");
-                stopProgressBar();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, String s) {
-                Log.d("debug", throwable.toString());
-                Log.d("debug", s);
+            public void onLoadMore(int page, int totalItemsCount) {
+                Log.d("debug", "Began loading endless scroll");
+                client.getHomeTimeline(earliestId, new ScrollRefreshJsonHandler());
             }
         });
     }
 
-    private void loadRecentlySavedTweets() {
-        List<Tweet> savedTweets = Tweet.getRecentlySaved();
-        if (!savedTweets.isEmpty()) {
-            addAll(savedTweets);
-            setEarliestId();
-            Log.d("debug", "Added " + savedTweets.size() + " saved tweets");
-        }
+    @Override
+    protected void setupTweetClick() {
+//        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Intent tweetDetailView = new Intent(getActivity(), TweetDetailActivity.class);
+//                tweetDetailView.putExtra("tweetPosition", position);
+//                startActivity(tweetDetailView);
+//            }
+//        });
+    }
+
+    @Override
+    protected void setupSwipeContainer(View view) {
+
+    }
+
+    @Override
+    protected void refreshFeed() {
+
+    }
+
+    @Override
+    protected void loadRecentlySavedTweets() {
+
+    }
+
+    @Override
+    protected void refreshTimeline() {
+
     }
 }

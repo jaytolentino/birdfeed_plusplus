@@ -101,4 +101,8 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         public TextView tvBody;
         public TextView tvTimestamp;
     }
+
+    public Tweet getLastTweet() {
+        return getItem(getCount() - 1);
+    }
 }
