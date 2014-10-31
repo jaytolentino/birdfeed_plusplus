@@ -1,18 +1,18 @@
 package com.codepath.apps.birdfeed.activities;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
-import com.codepath.apps.birdfeed.fragments.HomeTimelineFragment;
-import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragment;
+import com.codepath.apps.birdfeed.fragments.HomeTimelineFragmentAbstract;
+import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragmentAbstract;
 import com.codepath.apps.birdfeed.fragments.SupportFragmentTabListener;
-import com.codepath.apps.birdfeed.fragments.TweetListFragment;
+import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
 
 public class FeedActivity extends BaseActivity
         implements ComposeTweetFragment.RefreshTimelineListener {
@@ -57,11 +57,11 @@ public class FeedActivity extends BaseActivity
         ActionBar.Tab homeTimeline = actionBar
                 .newTab()
                 .setText(R.string.title_home_fragment)
-                .setTabListener(new SupportFragmentTabListener<HomeTimelineFragment>(
+                .setTabListener(new SupportFragmentTabListener<HomeTimelineFragmentAbstract>(
                         R.id.fragment_timeline,
                         this,
                         "first",
-                        HomeTimelineFragment.class));
+                        HomeTimelineFragmentAbstract.class));
 
         actionBar.addTab(homeTimeline);
         actionBar.selectTab(homeTimeline);
@@ -69,19 +69,19 @@ public class FeedActivity extends BaseActivity
         ActionBar.Tab mentionsTimeline = actionBar
                 .newTab()
                 .setText(R.string.title_mentions_fragment)
-                .setTabListener(new SupportFragmentTabListener<MentionsTimelineFragment>(
+                .setTabListener(new SupportFragmentTabListener<MentionsTimelineFragmentAbstract>(
                         R.id.fragment_timeline,
                         this,
                         "first",
-                        MentionsTimelineFragment.class));
+                        MentionsTimelineFragmentAbstract.class));
 
         actionBar.addTab(mentionsTimeline);
     }
 
     @Override
-    public void refreshTimeline() {
-        TweetListFragment tweetListFragment = (TweetListFragment)
+    public void refreshAfterTweet() {
+        AbstractTweetListFragment abstractTweetListFragment = (AbstractTweetListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-        tweetListFragment.refreshTimeline();
+        abstractTweetListFragment.refreshTimeline();
     }
 }

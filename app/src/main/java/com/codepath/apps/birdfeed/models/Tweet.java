@@ -1,9 +1,5 @@
 package com.codepath.apps.birdfeed.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -16,9 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -159,7 +153,6 @@ public class Tweet extends Model implements Serializable {
             JSONArray media = extEntities.getJSONArray("media");
             JSONObject mediaObject = media.getJSONObject(0);
             mediaUrl = (String) mediaObject.get("media_url");
-            Log.d("debug", "Media URL: " + mediaUrl);
         }
         catch (JSONException e) {
             e.printStackTrace();

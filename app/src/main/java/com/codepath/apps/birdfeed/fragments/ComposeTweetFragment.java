@@ -1,8 +1,6 @@
 package com.codepath.apps.birdfeed.fragments;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -17,15 +15,12 @@ import android.widget.TextView;
 
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.activities.BaseActivity;
-import com.codepath.apps.birdfeed.activities.FeedActivity;
 import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
-import com.codepath.apps.birdfeed.utils.ProgressBarHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ComposeTweetFragment extends DialogFragment {
@@ -121,7 +116,7 @@ public class ComposeTweetFragment extends DialogFragment {
         client.postNewTweet(tweetContent, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
-                ((TweetListFragment) getParentFragment()).refreshTimeline();
+                refreshTimelineListener.refreshAfterTweet();
                 getDialog().dismiss();
             }
 
@@ -154,6 +149,6 @@ public class ComposeTweetFragment extends DialogFragment {
     }
 
     public interface RefreshTimelineListener {
-        public void refreshTimeline();
+        public void refreshAfterTweet();
     }
 }

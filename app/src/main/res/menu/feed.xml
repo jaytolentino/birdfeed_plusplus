@@ -2,15 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.codepath.apps.birdfeed.activities.FeedActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        />
     <item android:id="@+id/action_compose"
         app:showAsAction="ifRoom|collapseActionView"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/menu_compose"
         android:title="Write new Tweet"
         android:onClick="onComposeTweet"
+        />
+    <item android:id="@+id/action_profile"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@drawable/menu_profile"
+        android:title="View Profile"
         />
 </menu>

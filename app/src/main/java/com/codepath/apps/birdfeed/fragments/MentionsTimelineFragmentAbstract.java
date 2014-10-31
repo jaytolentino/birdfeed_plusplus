@@ -6,20 +6,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
-import com.codepath.apps.birdfeed.models.Tweet;
-import com.codepath.apps.birdfeed.networking.TwitterApplication;
-import com.codepath.apps.birdfeed.networking.TwitterClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.apache.commons.collections4.ListUtils;
-import org.json.JSONArray;
-
-import java.util.List;
 
 /**
  * Created by jay on 10/29/14.
  */
-public class MentionsTimelineFragment extends TweetListFragment {
+public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment {
     private String mostRecentId;
 
     @Override
@@ -51,9 +42,10 @@ public class MentionsTimelineFragment extends TweetListFragment {
             @Override
             public void onRefresh() {
                 if (!aTweets.isEmpty()) {
-                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
-                    Log.d("debug", "Began refreshing feed");
-                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler());
+                    refreshTimeline();
+//                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
+//                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
+                    swipeContainer.setRefreshing(false);
                 }
             }
         });

@@ -1,6 +1,6 @@
 package com.codepath.apps.birdfeed.activities;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,11 +12,12 @@ import android.widget.Toast;
 
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
-import com.codepath.apps.birdfeed.fragments.TweetListFragment;
+import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class TweetDetailActivity extends BaseActivity {
+public class TweetDetailActivity extends BaseActivity
+        implements ComposeTweetFragment.RefreshTimelineListener {
     private Tweet tweet;
     private ImageView ivDetailProfilePic;
     private ImageView ivDetailBackground;
@@ -111,8 +112,8 @@ public class TweetDetailActivity extends BaseActivity {
     }
 
     private void createTweetAtPosition(int tweetPosition) {
-        if (TweetListFragment.hasTweets()) {
-            tweet = TweetListFragment.getTweet(tweetPosition);
+        if (AbstractTweetListFragment.hasTweets()) {
+            tweet = AbstractTweetListFragment.getTweet(tweetPosition);
         } else {
             throw new NullPointerException("Tweets deleted after process killed.");
         }
@@ -120,5 +121,11 @@ public class TweetDetailActivity extends BaseActivity {
 
     public void toastSuccessfulReply() {
         Toast.makeText(this, "Reply sent!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void refreshAfterTweet() {
+        Intent intent = new Intent(this, FeedActivity.class);
+        startActivity(intent);
     }
 }

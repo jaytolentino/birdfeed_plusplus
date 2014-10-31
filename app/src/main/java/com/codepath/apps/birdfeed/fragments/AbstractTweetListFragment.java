@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by jay on 10/28/14.
  */
-public abstract class TweetListFragment extends Fragment {
+public abstract class AbstractTweetListFragment extends Fragment {
     protected TwitterClient client;
     protected static ArrayList<Tweet> tweets;
     protected TweetsAdapter aTweets;
@@ -153,15 +153,17 @@ public abstract class TweetListFragment extends Fragment {
     }
 
     protected class RefreshWithNewItemsJsonHandler extends JsonHttpResponseHandler{
-        @Override //TODO refactor?
+        private ArrayList<Tweet> childTweets;
+
+        public RefreshWithNewItemsJsonHandler(ArrayList<Tweet> childTweets) {
+            this.childTweets = childTweets;
+        }
+        @Override // TODO  refactor?
         public void onSuccess(JSONArray json) {
-            Log.d("debug", "Size of original tweets: " + tweets.size());
-            List<Tweet> refreshedTweets = ListUtils.union(Tweet.fromJSONArray(json), tweets);
-            Log.d("debug", "Size of refreshed tweets: " + refreshedTweets.size());
+            List<Tweet> refreshedTweets = ListUtils.union(Tweet.fromJSONArray(json), childTweets);
             aTweets.clear();
             aTweets.addAll(refreshedTweets);
             swipeContainer.setRefreshing(false);
-            Log.d("debug", "Finished refreshing feed");
         }
 
         @Override
