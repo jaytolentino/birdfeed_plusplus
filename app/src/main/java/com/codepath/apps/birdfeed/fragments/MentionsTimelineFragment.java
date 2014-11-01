@@ -7,11 +7,10 @@ import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 
-
 /**
- * Created by jay on 10/28/14.
+ * Created by jay on 10/29/14.
  */
-public class HomeTimelineFragmentAbstract extends AbstractTweetListFragment {
+public class MentionsTimelineFragment extends AbstractTweetListFragment {
     private String mostRecentId;
 
     @Override
@@ -22,7 +21,7 @@ public class HomeTimelineFragmentAbstract extends AbstractTweetListFragment {
     @Override
     protected void populateTimeline() {
         super.populateTimeline();
-        client.getHomeTimeline(new TimelineJsonHandler());
+        client.getMentionsTimeline(new TimelineJsonHandler());
     }
 
     @Override
@@ -31,7 +30,7 @@ public class HomeTimelineFragmentAbstract extends AbstractTweetListFragment {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 Log.d("debug", "Began loading endless scroll");
-                client.getHomeTimeline(earliestId, new ScrollRefreshJsonHandler());
+                client.getMentionsTimeline(earliestId, new ScrollRefreshJsonHandler());
             }
         });
     }
@@ -45,7 +44,7 @@ public class HomeTimelineFragmentAbstract extends AbstractTweetListFragment {
                 if (!aTweets.isEmpty()) {
                     refreshTimeline();
 //                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
-//                    client.getNewHomeItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
+//                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
                     swipeContainer.setRefreshing(false);
                 }
             }
@@ -60,7 +59,7 @@ public class HomeTimelineFragmentAbstract extends AbstractTweetListFragment {
     @Override
     public void refreshTimeline() {
         clearAll();
-        // loadRecentlySavedTweets();
+        // loadRecentlySavedTweets(); TODO this is the SAME in HomeTimeline! Reuse?
         populateTimeline();
     }
 }

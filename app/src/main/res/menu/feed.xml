@@ -12,5 +12,6 @@
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/menu_profile"
         android:title="View Profile"
+        android:onClick="onViewProfile"
         />
 </menu>

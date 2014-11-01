@@ -7,10 +7,11 @@ import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 
+
 /**
- * Created by jay on 10/29/14.
+ * Created by jay on 10/28/14.
  */
-public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment {
+public class HomeTimelineFragment extends AbstractTweetListFragment {
     private String mostRecentId;
 
     @Override
@@ -21,7 +22,7 @@ public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment 
     @Override
     protected void populateTimeline() {
         super.populateTimeline();
-        client.getMentionsTimeline(new TimelineJsonHandler());
+        client.getHomeTimeline(new TimelineJsonHandler());
     }
 
     @Override
@@ -30,7 +31,7 @@ public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment 
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 Log.d("debug", "Began loading endless scroll");
-                client.getMentionsTimeline(earliestId, new ScrollRefreshJsonHandler());
+                client.getHomeTimeline(earliestId, new ScrollRefreshJsonHandler());
             }
         });
     }
@@ -44,7 +45,7 @@ public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment 
                 if (!aTweets.isEmpty()) {
                     refreshTimeline();
 //                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
-//                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
+//                    client.getNewHomeItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
                     swipeContainer.setRefreshing(false);
                 }
             }
@@ -59,7 +60,7 @@ public class MentionsTimelineFragmentAbstract extends AbstractTweetListFragment 
     @Override
     public void refreshTimeline() {
         clearAll();
-        // loadRecentlySavedTweets(); TODO this is the SAME in HomeTimeline! Reuse?
+        // loadRecentlySavedTweets();
         populateTimeline();
     }
 }

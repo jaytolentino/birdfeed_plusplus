@@ -1,16 +1,16 @@
 package com.codepath.apps.birdfeed.activities;
 
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
-import com.codepath.apps.birdfeed.fragments.HomeTimelineFragmentAbstract;
-import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragmentAbstract;
+import com.codepath.apps.birdfeed.fragments.HomeTimelineFragment;
+import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.SupportFragmentTabListener;
 import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
 
@@ -49,6 +49,11 @@ public class FeedActivity extends BaseActivity
         composeTweet.show(fm, "fragment_compose_tweet");
     }
 
+    public void onViewProfile(MenuItem item) {
+        Intent viewProfile = new Intent(this, ProfileActivity.class);
+        startActivity(viewProfile);
+    }
+
     private void setupTabs() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -57,11 +62,11 @@ public class FeedActivity extends BaseActivity
         ActionBar.Tab homeTimeline = actionBar
                 .newTab()
                 .setText(R.string.title_home_fragment)
-                .setTabListener(new SupportFragmentTabListener<HomeTimelineFragmentAbstract>(
+                .setTabListener(new SupportFragmentTabListener<HomeTimelineFragment>(
                         R.id.fragment_timeline,
                         this,
                         "first",
-                        HomeTimelineFragmentAbstract.class));
+                        HomeTimelineFragment.class));
 
         actionBar.addTab(homeTimeline);
         actionBar.selectTab(homeTimeline);
@@ -69,11 +74,11 @@ public class FeedActivity extends BaseActivity
         ActionBar.Tab mentionsTimeline = actionBar
                 .newTab()
                 .setText(R.string.title_mentions_fragment)
-                .setTabListener(new SupportFragmentTabListener<MentionsTimelineFragmentAbstract>(
+                .setTabListener(new SupportFragmentTabListener<MentionsTimelineFragment>(
                         R.id.fragment_timeline,
                         this,
                         "first",
-                        MentionsTimelineFragmentAbstract.class));
+                        MentionsTimelineFragment.class));
 
         actionBar.addTab(mentionsTimeline);
     }

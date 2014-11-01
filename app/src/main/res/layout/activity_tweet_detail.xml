@@ -86,7 +86,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:padding="@dimen/texsize_medium">
+            android:padding="@dimen/textsize_medium">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/texsize_medium"
+            android:layout_marginRight="@dimen/textsize_medium"
             android:textColor="@color/twitter_gray" />
 
         <TextView
@@ -169,18 +169,18 @@
             android:text="@string/placeholder_number"
             android:id="@+id/tvCountFavorites"
             android:layout_toEndOf="@+id/tvCountRetweets"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_alignStart="@+id/textView3"
-            android:layout_below="@+id/textView3"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignLeft="@+id/tvHeaderTweetCount"
+            android:layout_alignStart="@+id/tvHeaderTweetCount"
+            android:layout_below="@+id/tvHeaderTweetCount"
+            android:layout_alignRight="@+id/tvHeaderTweetCount"
+            android:layout_alignEnd="@+id/tvHeaderTweetCount"
             android:textColor="@color/twitter_blue" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_favorites"
-            android:id="@+id/textView3"
+            android:id="@+id/tvHeaderTweetCount"
             android:layout_toEndOf="@+id/tvTitleRetweet"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/tvTitleRetweet"
@@ -192,11 +192,11 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_reply"
             android:id="@+id/btnDetailReply"
-            android:layout_toEndOf="@+id/textView3"
+            android:layout_toEndOf="@+id/tvHeaderTweetCount"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toRightOf="@+id/textView3"
+            android:layout_toRightOf="@+id/tvHeaderTweetCount"
             android:onClick="onReply"
             android:background="@color/twitter_blue"
             android:textColor="@color/twitter_white" />

@@ -34,18 +34,20 @@ public class User extends Model implements Parcelable {
     @Column(name = "cover_image_url")
     private String coverImageUrl;
 
+    @Column(name = "tagline")
+    private String tagline;
+
+    @Column(name = "tweet_count")
+    private int tweetCount;
+
+    @Column(name = "follower_count")
+    private int followerCount;
+
+    @Column(name = "following_count")
+    private int followingCount;
+
     public User() {
         super();
-    }
-
-    public User(String name, long uid, String username, String profileImageUrl, String coverImageUrl) {
-        super();
-        this.name = name;
-        this.uid = uid;
-        this.username = username;
-        this.profileImageUrl = profileImageUrl;
-        this.coverImageUrl = coverImageUrl;
-        this.save();
     }
 
     public static User fromJSON(JSONObject jsonObject) {
@@ -56,6 +58,10 @@ public class User extends Model implements Parcelable {
             user.username = jsonObject.getString("screen_name");
             user.profileImageUrl = jsonObject.getString("profile_image_url");
             user.coverImageUrl = jsonObject.getString("profile_background_image_url");
+            user.tagline = jsonObject.getString("description");
+            user.tweetCount = jsonObject.getInt("statuses_count");
+            user.followerCount = jsonObject.getInt("followers_count");
+            user.followingCount = jsonObject.getInt("friends_count");
             long result = user.save();
         }
         catch (JSONException e) {
@@ -82,6 +88,22 @@ public class User extends Model implements Parcelable {
 
     public String getCoverImageUrl() {
         return coverImageUrl;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public int getTweetCount() {
+        return tweetCount;
+    }
+
+    public int getFollowerCount() {
+        return followerCount;
+    }
+
+    public int getFollowingCount() {
+        return followingCount;
     }
 
     @Override

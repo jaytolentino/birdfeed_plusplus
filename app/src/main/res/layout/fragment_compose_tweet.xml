@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="@dimen/padding_small"
-        android:textSize="@dimen/texsize_medium"
+        android:textSize="@dimen/textsize_medium"
         android:background="@color/twitter_blue"
         android:textColor="@color/twitter_white" />
 

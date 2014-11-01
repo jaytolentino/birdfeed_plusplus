@@ -78,7 +78,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/tvUsername"
                 android:layout_marginRight="@dimen/padding_medium"
-                android:textSize="@dimen/texsize_medium" />
+                android:textSize="@dimen/textsize_medium" />
 
             <TextView
                 android:layout_width="wrap_content"

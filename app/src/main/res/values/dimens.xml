@@ -5,13 +5,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="padding_small">5dp</dimen>
     <dimen name="padding_medium">10dp</dimen>
-    <dimen name="textsize_small">12dp</dimen>
+    <dimen name="textsize_small">12sp</dimen>
     <dimen name="padding_xsmall">3dp</dimen>
-    <dimen name="textsize_large">20dp</dimen>
+    <dimen name="textsize_large">20sp</dimen>
     <dimen name="image_profile">40dp</dimen>
     <dimen name="padding_large">15dp</dimen>
     <dimen name="padding_xlarge">20dp</dimen>
-    <dimen name="texsize_medium">16dp</dimen>
-    <dimen name="textsize_xlarge">24dp</dimen>
+    <dimen name="textsize_medium">16sp</dimen>
+    <dimen name="textsize_xlarge">24sp</dimen>
+    <dimen name="image_profile_large">50dp</dimen>
 
 </resources>

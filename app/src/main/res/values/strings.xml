@@ -25,5 +25,10 @@
     <string name="btn_reply">Reply</string>
     <string name="title_home_fragment">Home</string>
     <string name="title_mentions_fragment">Mentions</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_tweet_count">Tweets</string>
+    <string name="title_followers">Followers</string>
+    <string name="title_following">Following</string>
+    <string name="sample_tagline">Ice cream lover and crossfit enthusiast</string>
 
 </resources>
