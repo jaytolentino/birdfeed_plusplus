@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
-import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -33,6 +32,7 @@ public class TweetDetailActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_detail);
+        tweet = (Tweet) getIntent().getSerializableExtra("tweet");
 
         initailizeMemberVariables();
         setImageViews();
@@ -71,7 +71,6 @@ public class TweetDetailActivity extends BaseActivity
 
     private void initailizeMemberVariables() {
         int tweetPosition = getIntent().getIntExtra("tweetPosition", 0);
-        createTweetAtPosition(tweetPosition);
 
         ivDetailProfilePic = (ImageView) findViewById(R.id.ivDetailProfilePic);
         ivDetailBackground = (ImageView) findViewById(R.id.ivDetailBackground);
@@ -109,14 +108,6 @@ public class TweetDetailActivity extends BaseActivity
         tvDetailTimestamp.setText(tweet.getRelativeTimetamp());
         tvCountRetweets.setText(tweet.getRetweetCount());
         tvCountFavorites.setText(tweet.getFavoriteCount());
-    }
-
-    private void createTweetAtPosition(int tweetPosition) {
-        if (AbstractTweetListFragment.hasTweets()) {
-            tweet = AbstractTweetListFragment.getTweet(tweetPosition);
-        } else {
-            throw new NullPointerException("Tweets deleted after process killed.");
-        }
     }
 
     public void toastSuccessfulReply() {

@@ -2,25 +2,22 @@ package com.codepath.apps.birdfeed.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
-import com.codepath.apps.birdfeed.R;
-import com.codepath.apps.birdfeed.networking.TwitterApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by jay on 10/17/14.
  */
 @Table(name = "User")
-public class User extends Model implements Parcelable {
+public class User extends Model implements Parcelable, Serializable {
     private static final int PRETTY_NUMBER_BREAKPOINT = 10000;
     private static final int PRETTY_NUMBER_DIVIDER = 1000;
 

@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.activities.BaseActivity;
 import com.codepath.apps.birdfeed.activities.TweetDetailActivity;
-import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 import com.codepath.apps.birdfeed.adapters.TweetsAdapter;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
@@ -70,7 +69,7 @@ public abstract class AbstractTweetListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent tweetDetailView = new Intent(getActivity(), TweetDetailActivity.class);
-                tweetDetailView.putExtra("tweetPosition", position);
+                tweetDetailView.putExtra("tweet", aTweets.getItem(position));
                 startActivity(tweetDetailView);
             }
         });

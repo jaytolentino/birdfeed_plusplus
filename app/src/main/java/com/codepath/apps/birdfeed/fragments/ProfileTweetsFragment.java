@@ -1,12 +1,9 @@
 package com.codepath.apps.birdfeed.fragments;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
  * Created by jay on 10/31/14.
