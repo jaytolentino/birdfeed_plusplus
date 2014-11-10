@@ -38,4 +38,8 @@ public class TwitterApplication extends com.activeandroid.app.Application {
 	public static TwitterClient getRestClient() {
 		return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, TwitterApplication.context);
 	}
+
+    public static Context getContext() {
+        return context;
+    }
 }

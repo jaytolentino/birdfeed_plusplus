@@ -20,7 +20,7 @@
     <string name="description_background">Background Image</string>
     <string name="title_retweet">Retweet</string>
     <string name="title_favorites">Favorites</string>
-    <string name="placeholder_number">203</string>
+    <string name="placeholder_number">2083</string>
     <string name="title_reply">Reply?</string>
     <string name="btn_reply">Reply</string>
     <string name="title_home_fragment">Home</string>

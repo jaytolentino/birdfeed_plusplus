@@ -6,10 +6,15 @@ import android.view.Menu;
 import android.view.View;
 
 import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.models.User;
 import com.codepath.apps.birdfeed.networking.TwitterClient;
 import com.codepath.oauth.OAuthLoginActivity;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
 
 public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
+    public static User currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
+        loadProfileInfo();
 		Intent i = new Intent(this, FeedActivity.class);
 		startActivity(i);
 	}
@@ -45,5 +51,17 @@ public class LoginActivity extends OAuthLoginActivity<TwitterClient> {
 	public void loginToRest(View view) {
 		getClient().connect();
 	}
+
+
+
+    private void loadProfileInfo() {
+        getClient().getMyInfo(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                currentUser = User.fromJSON(jsonObject);
+                getActionBar().setTitle("@" + currentUser.getUsername());
+            }
+        });
+    }
 
 }

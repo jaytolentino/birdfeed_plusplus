@@ -8,6 +8,8 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.networking.TwitterApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +21,10 @@ import java.util.List;
  */
 @Table(name = "User")
 public class User extends Model implements Parcelable {
+    private static final int PRETTY_NUMBER_BREAKPOINT = 10000;
+    private static final int PRETTY_NUMBER_DIVIDER = 1000;
+
+
     @Column(name = "name")
     private String name;
 
@@ -118,5 +124,26 @@ public class User extends Model implements Parcelable {
         parcel.writeString(username);
         parcel.writeString(profileImageUrl);
         parcel.writeString(coverImageUrl);
+    }
+
+    public String getPrettyTweetCount() {
+        return createPretty(tweetCount);
+    }
+
+    public String getPrettyFollowerCount() {
+        return createPretty(followerCount);
+    }
+
+    public String getPrettyFollowingCount() {
+        return createPretty(followingCount);
+    }
+
+    private String createPretty(int base) {
+        if (base > PRETTY_NUMBER_BREAKPOINT) {
+            int result = base / PRETTY_NUMBER_DIVIDER;
+            return result + "k";
+        } else {
+            return Integer.toString(base);
+        }
     }
 }

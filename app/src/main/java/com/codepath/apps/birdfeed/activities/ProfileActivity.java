@@ -3,6 +3,7 @@ package com.codepath.apps.birdfeed.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -17,10 +18,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
 
-public class ProfileActivity extends FragmentActivity
-        implements ProfileHeaderFragment.ProfileHeaderListener {
+public class ProfileActivity extends BaseActivity {
     private TwitterClient client;
-    private User currentUser;
 
 
     @Override
@@ -28,7 +27,6 @@ public class ProfileActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         client = TwitterApplication.getRestClient();
-        loadProfileInfo();
     }
 
 
@@ -51,19 +49,8 @@ public class ProfileActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadProfileInfo() {
-        client.getMyInfo(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                currentUser = User.fromJSON(jsonObject);
-                getActionBar().setTitle("@" + currentUser.getUsername());
-            }
-        });
-    }
-
-    @Override
-    public User getProfileInfo() {
-        loadProfileInfo();
-        return currentUser;
-    }
+//    @Override
+//    public User getProfileInfo() {
+//        return currentUser;
+//    }
 }

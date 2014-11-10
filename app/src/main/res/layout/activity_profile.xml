@@ -14,13 +14,13 @@
         android:layout_alignParentStart="true"
         tools:layout="@layout/fragment_profile_header" />
 
-    <!--<fragment-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:name="com.codepath.apps.birdfeed.fragments.ProfileTweetsFragment"-->
-        <!--android:id="@+id/fragment"-->
-        <!--android:layout_below="@+id/profileHeader"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--tools:layout="@layout/fragment_profile_tweets" />-->
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.codepath.apps.birdfeed.fragments.ProfileTweetsFragment"
+        android:id="@+id/fragment"
+        android:layout_below="@+id/profileHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:layout="@layout/fragment_profile_tweets" />
 </RelativeLayout>

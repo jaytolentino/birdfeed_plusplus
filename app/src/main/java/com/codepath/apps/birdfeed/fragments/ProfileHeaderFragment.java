@@ -3,6 +3,7 @@ package com.codepath.apps.birdfeed.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.activities.LoginActivity;
 import com.codepath.apps.birdfeed.models.User;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -17,7 +19,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Created by jay on 10/31/14.
  */
 public class ProfileHeaderFragment extends Fragment {
-    private ProfileHeaderListener profileHeaderListener;
     private User currentUser;
 
     private TextView tvHeaderFullName;
@@ -32,17 +33,6 @@ public class ProfileHeaderFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof ProfileHeaderListener) {
-            profileHeaderListener = (ProfileHeaderListener) activity;
-        } else {
-            throw new ClassCastException(activity.toString()
-                    + " must implement ComposeTweetFragment.ProfileHeaderListener");
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -50,7 +40,7 @@ public class ProfileHeaderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_header, container, false);
-        currentUser = profileHeaderListener.getProfileInfo();
+        currentUser = LoginActivity.currentUser;
         instantiateViews(view);
         populateViews();
         return view;
@@ -58,29 +48,24 @@ public class ProfileHeaderFragment extends Fragment {
 
     private void instantiateViews(View view) {
         tvHeaderFullName = (TextView) view.findViewById(R.id.tvHeaderFullName);
-//        tvHeaderUsername = (TextView) view.findViewById(R.id.tvHeaderUsername);
-//        tvHeaderTagline = (TextView) view.findViewById(R.id.tvHeaderTagline);
-//        tvHeaderTweetCount = (TextView) view.findViewById(R.id.tvHeaderTweetCount);
-//        tvHeaderFollowerCount = (TextView) view.findViewById(R.id.tvHeaderFollowerCount);
-//        tvHeaderFollowingCount = (TextView) view.findViewById(R.id.tvHeaderFollowingCount);
-//        ivHeaderProfile = (ImageView) view.findViewById(R.id.ivHeaderProfile);
+        tvHeaderUsername = (TextView) view.findViewById(R.id.tvHeaderUsername);
+        tvHeaderTagline = (TextView) view.findViewById(R.id.tvHeaderTagline);
+        tvHeaderTweetCount = (TextView) view.findViewById(R.id.tvHeaderTweetCount);
+        tvHeaderFollowerCount = (TextView) view.findViewById(R.id.tvHeaderFollowerCount);
+        tvHeaderFollowingCount = (TextView) view.findViewById(R.id.tvHeaderFollowingCount);
+        ivHeaderProfile = (ImageView) view.findViewById(R.id.ivHeaderProfile);
     }
 
     private void populateViews() {
-        //TODO problems happening HEREEEE!!!
-//        tvHeaderUsername.setText(currentUser.getName());
-//        tvHeaderFullName.setText(currentUser.getName());
-//        tvHeaderTagline.setText(currentUser.getTagline());
-//        tvHeaderTweetCount.setText(currentUser.getTweetCount());
-//        tvHeaderFollowerCount.setText(currentUser.getFollowerCount());
-//        tvHeaderFollowingCount.setText(currentUser.getFollowingCount());
-//
-//        ImageLoader imageLoader = ImageLoader.getInstance();
-//        ivHeaderProfile.setImageResource(android.R.color.transparent);
-//        imageLoader.displayImage(currentUser.getProfileImageUrl(), ivHeaderProfile);
-    }
+        tvHeaderUsername.setText(currentUser.getName());
+        tvHeaderFullName.setText(currentUser.getUsername());
+        tvHeaderTagline.setText(currentUser.getTagline());
+        tvHeaderTweetCount.setText(currentUser.getPrettyTweetCount());
+        tvHeaderFollowerCount.setText(currentUser.getPrettyFollowerCount());
+        tvHeaderFollowingCount.setText(currentUser.getPrettyFollowingCount());
 
-    public interface ProfileHeaderListener {
-        public User getProfileInfo();
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        ivHeaderProfile.setImageResource(android.R.color.transparent);
+        imageLoader.displayImage(currentUser.getProfileImageUrl(), ivHeaderProfile);
     }
 }

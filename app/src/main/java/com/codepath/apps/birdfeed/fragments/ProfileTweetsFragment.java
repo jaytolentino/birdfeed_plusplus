@@ -1,7 +1,11 @@
 package com.codepath.apps.birdfeed.fragments;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
+import android.view.View;
 
+import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 /**
@@ -17,7 +21,28 @@ public class ProfileTweetsFragment extends AbstractTweetListFragment {
 
     @Override
     protected void setupTweetScroll() {
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                client.getUserTimeline(earliestId, new ScrollRefreshJsonHandler());
+            }
+        });
+    }
 
+    @Override
+    protected void setupSwipeContainer(View view) {
+        super.setupSwipeContainer(view);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!aTweets.isEmpty()) {
+                    refreshTimeline();
+//                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
+//                    client.getNewMentionItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
+                    swipeContainer.setRefreshing(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -27,6 +52,8 @@ public class ProfileTweetsFragment extends AbstractTweetListFragment {
 
     @Override
     public void refreshTimeline() {
-
+        clearAll();
+        // loadRecentlySavedTweets(); TODO this is the SAME in HomeTimeline! Reuse?
+        populateTimeline();
     }
 }
