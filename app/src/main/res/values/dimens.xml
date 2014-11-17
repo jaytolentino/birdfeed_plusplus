@@ -16,5 +16,6 @@
     <dimen name="image_profile_large">50dp</dimen>
     <dimen name="padding_xxlarge">25dp</dimen>
     <dimen name="padding_3xlarge">30dp</dimen>
+    <dimen name="padding_tweet_topBottom">40dp</dimen>
 
 </resources>

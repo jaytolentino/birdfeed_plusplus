@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/transparentHolder"
-        android:paddingTop="@dimen/padding_xlarge"
-        android:paddingBottom="@dimen/padding_xlarge"
+        android:paddingTop="@dimen/padding_tweet_topBottom"
+        android:paddingBottom="@dimen/padding_tweet_topBottom"
         android:paddingLeft="@dimen/padding_medium"
         android:paddingRight="@dimen/padding_medium">
 
