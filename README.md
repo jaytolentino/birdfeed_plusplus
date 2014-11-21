@@ -5,6 +5,7 @@ And you thought the last Birdfeed was good :smirk:
 ## User Stories
 
 ### Completed stories...
+
 __Required:__
 * All user stories from the [last assignment](https://github.com/jaytolentino/birdfeed)
 * User can switch between Timeline and Mention views using tabs.
@@ -14,16 +15,13 @@ __Required:__
 * User can navigate to view their own profile
   * User can see picture, tagline, # of followers, # of following, and tweets on their profile.
 * Optional: Implement tabs in a gingerbread-compatible approach
-
-- - -
-
-### To complete...
-
-__Required:__
 * User can click on the profile image in any tweet to see another user's profile.
   * User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
   * Profile view should include that user's timeline
 
+- - -
+
+### To complete...
 
 _Optional:_
 * Optional: User can view following / followers list through the profile

@@ -17,10 +17,9 @@ import java.util.List;
  * Created by jay on 10/17/14.
  */
 @Table(name = "User")
-public class User extends Model implements Parcelable, Serializable {
+public class User extends Model implements Serializable {
     private static final int PRETTY_NUMBER_BREAKPOINT = 10000;
     private static final int PRETTY_NUMBER_DIVIDER = 1000;
-
 
     @Column(name = "name")
     private String name;
@@ -52,6 +51,8 @@ public class User extends Model implements Parcelable, Serializable {
     public User() {
         super();
     }
+
+    public User(Parcel in ) {}
 
     public static User fromJSON(JSONObject jsonObject) {
         User user = new User();
@@ -109,19 +110,19 @@ public class User extends Model implements Parcelable, Serializable {
         return followingCount;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeLong(uid);
-        parcel.writeString(username);
-        parcel.writeString(profileImageUrl);
-        parcel.writeString(coverImageUrl);
-    }
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeString(name);
+//        parcel.writeLong(uid);
+//        parcel.writeString(username);
+//        parcel.writeString(profileImageUrl);
+//        parcel.writeString(coverImageUrl);
+//    }
 
     public String getPrettyTweetCount() {
         return createPretty(tweetCount);
@@ -143,4 +144,15 @@ public class User extends Model implements Parcelable, Serializable {
             return Integer.toString(base);
         }
     }
+
+//    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+//
+//        public User createFromParcel(Parcel in) {
+//            return new User(in);
+//        }
+//
+//        public User[] newArray(int size) {
+//            return new User[size];
+//        }
+//    };
 }

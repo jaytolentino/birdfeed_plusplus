@@ -1,19 +1,41 @@
 package com.codepath.apps.birdfeed.fragments;
 
+import android.app.Activity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
+import com.codepath.apps.birdfeed.models.User;
 
 /**
  * Created by jay on 10/31/14.
  */
 public class ProfileTweetsFragment extends AbstractTweetListFragment {
+    private ProfileHeaderFragment.ProfileListener listener;
+    private User mUser;
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ProfileHeaderFragment.ProfileListener) {
+            listener = (ProfileHeaderFragment.ProfileListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ProfileHeaderFragment.ProfileListener");
+        }
+    }
 
     @Override
     protected void populateTimeline() {
         super.populateTimeline();
-        client.getUserTimeline(new TimelineJsonHandler());
+        if (listener.getUser() != null) {
+            mUser = listener.getUser();
+            client.getUserTimeline(mUser.getUid(), new TimelineJsonHandler());
+        } else {
+            client.getUserTimeline(new TimelineJsonHandler());
+        }
     }
 
     @Override

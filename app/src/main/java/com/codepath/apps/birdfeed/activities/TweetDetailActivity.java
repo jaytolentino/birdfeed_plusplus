@@ -3,6 +3,7 @@ package com.codepath.apps.birdfeed.activities;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,16 @@ import android.widget.Toast;
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
+import com.codepath.apps.birdfeed.models.User;
+import com.codepath.apps.birdfeed.networking.TwitterApplication;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class TweetDetailActivity extends BaseActivity
         implements ComposeTweetFragment.RefreshTimelineListener {
@@ -37,6 +47,7 @@ public class TweetDetailActivity extends BaseActivity
         initailizeMemberVariables();
         setImageViews();
         setTextViews();
+        setProfileOnClick();
     }
 
     @Override
@@ -70,8 +81,6 @@ public class TweetDetailActivity extends BaseActivity
     }
 
     private void initailizeMemberVariables() {
-        int tweetPosition = getIntent().getIntExtra("tweetPosition", 0);
-
         ivDetailProfilePic = (ImageView) findViewById(R.id.ivDetailProfilePic);
         ivDetailBackground = (ImageView) findViewById(R.id.ivDetailBackground);
         ivDetailMedia = (ImageView) findViewById(R.id.ivDetailMedia);
@@ -118,5 +127,42 @@ public class TweetDetailActivity extends BaseActivity
     public void refreshAfterTweet() {
         Intent intent = new Intent(this, FeedActivity.class);
         startActivity(intent);
+    }
+
+    private void setProfileOnClick() {
+        final String uid = Long.toString(tweet.getUser().getUid());
+        View.OnClickListener clickToProfile = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getProfileInfo(uid);
+            }
+        };
+        tvDetailUsername.setOnClickListener(clickToProfile);
+        tvDetailName.setOnClickListener(clickToProfile);
+        ivDetailProfilePic.setOnClickListener(clickToProfile);
+    }
+
+    private void getProfileInfo(String uid) {
+        ArrayList<String> userIds = new ArrayList<String>();
+        userIds.add(uid);
+        TwitterApplication.getRestClient().getUserInfo(userIds, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray jsonArray) {
+                try {
+                    JSONObject userInfo = (JSONObject) jsonArray.get(0);
+                    User user = User.fromJSON(userInfo);
+                    Intent profileIntent = new Intent(TweetDetailActivity.this, ProfileActivity.class);
+                    profileIntent.putExtra(ProfileActivity.USER, user);
+                    startActivity(profileIntent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONArray jsonArray) {
+                Log.d("debug", throwable.getMessage());
+            }
+        });
     }
 }

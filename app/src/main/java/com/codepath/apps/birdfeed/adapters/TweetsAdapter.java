@@ -1,9 +1,11 @@
 package com.codepath.apps.birdfeed.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.activities.ProfileActivity;
 import com.codepath.apps.birdfeed.models.Tweet;
+import com.codepath.apps.birdfeed.models.User;
+import com.codepath.apps.birdfeed.networking.TwitterApplication;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,14 +38,17 @@ import java.util.List;
  * Created by jay on 10/17/14.
  */
 public class TweetsAdapter extends ArrayAdapter<Tweet> {
+    private Tweet mTweet;
+    private Context mContext;
 
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         super(context, 0, tweets);
+        mContext = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Tweet tweet = getItem(position);
+        mTweet = getItem(position);
         TweetViewHolder holder;
         if (convertView == null) {
             holder = new TweetViewHolder();
@@ -46,7 +60,8 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         else {
             holder = (TweetViewHolder) convertView.getTag();
         }
-        setViewContent(tweet, holder);
+        setViewContent(holder);
+        setProfileOnClick(holder);
         return convertView;
     }
 
@@ -61,35 +76,48 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         holder.tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
     }
 
-    private void setViewContent(Tweet tweet, TweetViewHolder holder) {
-        setImageViews(tweet, holder);
+    private void setViewContent(TweetViewHolder holder) {
+        setImageViews(holder);
 
-        holder.tvFullName.setText(tweet.getUser().getName());
+        holder.tvFullName.setText(mTweet.getUser().getName());
 
-        holder.tvUsername.setText("@" + tweet.getUser().getUsername());
+        holder.tvUsername.setText("@" + mTweet.getUser().getUsername());
         holder.tvUsername.setTextColor(getContext().getResources().getColor(R.color.gray_font));
 
-        holder.tvBody.setText(tweet.getBody());
+        holder.tvBody.setText(mTweet.getBody());
 
-        holder.tvTimestamp.setText(tweet.getRelativeTimetamp());
+        holder.tvTimestamp.setText(mTweet.getRelativeTimetamp());
         holder.tvTimestamp.setTextColor(Color.LTGRAY);
     }
 
-    private void setImageViews(Tweet tweet, TweetViewHolder holder) {
+    private void setImageViews(TweetViewHolder holder) {
         ImageLoader imageLoader = ImageLoader.getInstance();
         holder.ivProfileImage.setImageResource(android.R.color.transparent);
-        imageLoader.displayImage(tweet.getUser().getProfileImageUrl(), holder.ivProfileImage);
+        imageLoader.displayImage(mTweet.getUser().getProfileImageUrl(), holder.ivProfileImage);
 
         holder.ivCoverImage.setImageResource(android.R.color.transparent);
-        imageLoader.displayImage(tweet.getUser().getCoverImageUrl(), holder.ivCoverImage);
+        imageLoader.displayImage(mTweet.getUser().getCoverImageUrl(), holder.ivCoverImage);
 
-        if (tweet.hasMedia()) {
+        if (mTweet.hasMedia()) {
             holder.ivMedia.setVisibility(View.VISIBLE);
             holder.ivMedia.setImageResource(android.R.color.transparent);
-            imageLoader.displayImage(tweet.getMediaUrl(), holder.ivMedia);
+            imageLoader.displayImage(mTweet.getMediaUrl(), holder.ivMedia);
         } else {
             holder.ivMedia.setVisibility(View.GONE);
         }
+    }
+
+    private void setProfileOnClick(TweetViewHolder holder) {
+        final String uid = Long.toString(mTweet.getUser().getUid());
+        View.OnClickListener clickToProfile = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getProfileInfo(uid);
+            }
+        };
+        holder.tvFullName.setOnClickListener(clickToProfile);
+        holder.tvUsername.setOnClickListener(clickToProfile);
+        holder.ivProfileImage.setOnClickListener(clickToProfile);
     }
 
     private class TweetViewHolder {
@@ -104,5 +132,33 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
 
     public Tweet getLastTweet() {
         return getItem(getCount() - 1);
+    }
+
+    private void getProfileInfo(String uid) {
+        ArrayList<String> userIds = new ArrayList<String>();
+        userIds.add(uid);
+        TwitterApplication.getRestClient().getUserInfo(userIds, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONArray jsonArray) {
+                try {
+                    JSONObject userInfo = (JSONObject) jsonArray.get(0);
+                    User user = User.fromJSON(userInfo);
+                    Intent profileIntent = new Intent(mContext, ProfileActivity.class);
+                    profileIntent.putExtra(ProfileActivity.USER, user);
+                    mContext.startActivity(profileIntent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONArray jsonArray) {
+                Log.d("debug", throwable.getMessage());
+            }
+        });
+    }
+
+    private void getProfileBanner(String uid, User user) {
+
     }
 }

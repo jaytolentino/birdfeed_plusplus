@@ -1,16 +1,9 @@
 package com.codepath.apps.birdfeed.activities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Window;
 
-/**
- * Created by jay on 10/29/14.
- */
 public class BaseActivity extends ActionBarActivity {
 
     @Override

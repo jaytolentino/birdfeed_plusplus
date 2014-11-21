@@ -11,6 +11,9 @@ import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * 
  * This is the object responsible for communicating with a REST API. 
@@ -39,7 +42,7 @@ public class TwitterClient extends OAuthBaseClient {
         String apiUrl = getApiUrl("statuses/home_timeline.json");
 
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, null, handler);
     }
 
@@ -48,14 +51,14 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("max_id", earliestId);
 
-        Log.d("DEBUG", "GET " + apiUrl + ", MAX_ID: " + earliestId);
+        Log.i("INFO", "GET " + apiUrl + ", MAX_ID: " + earliestId);
         client.get(apiUrl, params, handler);
     }
 
     public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/mentions_timeline.json");
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, null, handler);
     }
 
@@ -64,7 +67,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("max_id", earliestId);
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, params, handler);
     }
 
@@ -73,7 +76,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("since_id", mostRecentId);
 
-        Log.d("DEBUG", "GET " + apiUrl + ", SINCE_ID: " + mostRecentId);
+        Log.i("INFO", "GET " + apiUrl + ", SINCE_ID: " + mostRecentId);
         client.get(apiUrl, params, handler);
     }
 
@@ -82,21 +85,21 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("since_id", mostRecentId);
 
-        Log.d("DEBUG", "GET " + apiUrl + ", SINCE_ID: " + mostRecentId);
+        Log.i("INFO", "GET " + apiUrl + ", SINCE_ID: " + mostRecentId);
         client.get(apiUrl, params, handler);
     }
 
     public void getMyInfo(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("account/verify_credentials.json");
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, null, handler);
     }
 
     public void getUserTimeline(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, null, handler);
     }
 
@@ -105,7 +108,16 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("max_id", earliestId);
 
-        Log.d("DEBUG", "GET " + apiUrl);
+        Log.i("INFO", "GET " + apiUrl);
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUserTimeline(long uid, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        RequestParams params = new RequestParams();
+        params.put("user_id", Long.toString(uid));
+
+        Log.i("INFO", "GET " + apiUrl);
         client.get(apiUrl, params, handler);
     }
 
@@ -114,7 +126,7 @@ public class TwitterClient extends OAuthBaseClient {
         RequestParams params = new RequestParams();
         params.put("status", content);
 
-        Log.d("DEBUG", "PUT " + apiUrl + ", STATUS: " + content);
+        Log.i("INFO", "PUT " + apiUrl + ", STATUS: " + content);
         client.post(apiUrl, params, handler);
     }
 
@@ -124,16 +136,17 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("status", content);
         params.put("in_reply_to_status_id", String.valueOf(replyToId));
 
-        Log.d("DEBUG", "PUT " + apiUrl + ", STATUS: " + content + ", IN_REPLY_TO: " + replyToId);
+        Log.i("INFO", "PUT " + apiUrl + ", STATUS: " + content + ", IN_REPLY_TO: " + replyToId);
         client.post(apiUrl, params, handler);
     }
 
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
+    // TODO batch request for user info in background after doing home timeline and/or mentions request
+    public void getUserInfo(ArrayList<String> userIds, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("users/lookup.json");
+        RequestParams params = new RequestParams();
+        params.put("user_id", userIds);
+
+        Log.i("INFO", "GET " + apiUrl + ", USER_ID: " + userIds.get(0));
+        client.get(apiUrl, params, handler);
+    }
 }

@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * Created by jay on 10/31/14.
  */
 public class ProfileHeaderFragment extends Fragment {
+    private ProfileListener listener;
     private User currentUser;
 
     private TextView tvHeaderFullName;
@@ -33,14 +34,29 @@ public class ProfileHeaderFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ProfileListener) {
+            listener = (ProfileListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ProfileHeaderFragment.ProfileListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (listener.getUser() != null) {
+            currentUser = listener.getUser();
+        } else {
+            currentUser = LoginActivity.currentUser;
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_header, container, false);
-        currentUser = LoginActivity.currentUser;
         instantiateViews(view);
         populateViews();
         return view;
@@ -57,8 +73,8 @@ public class ProfileHeaderFragment extends Fragment {
     }
 
     private void populateViews() {
-        tvHeaderUsername.setText(currentUser.getName());
-        tvHeaderFullName.setText(currentUser.getUsername());
+        tvHeaderFullName.setText(currentUser.getName());
+        tvHeaderUsername.setText(currentUser.getUsername());
         tvHeaderTagline.setText(currentUser.getTagline());
         tvHeaderTweetCount.setText(currentUser.getPrettyTweetCount());
         tvHeaderFollowerCount.setText(currentUser.getPrettyFollowerCount());
@@ -67,5 +83,9 @@ public class ProfileHeaderFragment extends Fragment {
         ImageLoader imageLoader = ImageLoader.getInstance();
         ivHeaderProfile.setImageResource(android.R.color.transparent);
         imageLoader.displayImage(currentUser.getProfileImageUrl(), ivHeaderProfile);
+    }
+
+    public interface ProfileListener {
+        public User getUser();
     }
 }
