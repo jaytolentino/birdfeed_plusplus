@@ -18,7 +18,8 @@ import java.util.List;
  */
 @Table(name = "User")
 public class User extends Model implements Serializable {
-    private static final int PRETTY_NUMBER_BREAKPOINT = 10000;
+    private static final int PRETTY_NUMBER_BREAKPOINT_10K = 10000;
+    private static final double PRETTY_NUMBER_BREAKPOINT_1MIL = 1000000.00;
     private static final int PRETTY_NUMBER_DIVIDER = 1000;
 
     @Column(name = "name")
@@ -110,20 +111,6 @@ public class User extends Model implements Serializable {
         return followingCount;
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel parcel, int i) {
-//        parcel.writeString(name);
-//        parcel.writeLong(uid);
-//        parcel.writeString(username);
-//        parcel.writeString(profileImageUrl);
-//        parcel.writeString(coverImageUrl);
-//    }
-
     public String getPrettyTweetCount() {
         return createPretty(tweetCount);
     }
@@ -137,22 +124,14 @@ public class User extends Model implements Serializable {
     }
 
     private String createPretty(int base) {
-        if (base > PRETTY_NUMBER_BREAKPOINT) {
-            int result = base / PRETTY_NUMBER_DIVIDER;
+        if (base > PRETTY_NUMBER_BREAKPOINT_1MIL) {
+            double result = ((double) base) / PRETTY_NUMBER_BREAKPOINT_1MIL;
+            return String.format("%.1f", result) + "m";
+        } else if (base > PRETTY_NUMBER_BREAKPOINT_10K) {
+            int result = base / 1000;
             return result + "k";
         } else {
             return Integer.toString(base);
         }
     }
-
-//    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-//
-//        public User createFromParcel(Parcel in) {
-//            return new User(in);
-//        }
-//
-//        public User[] newArray(int size) {
-//            return new User[size];
-//        }
-//    };
 }

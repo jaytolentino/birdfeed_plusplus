@@ -66,7 +66,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
     }
 
     private void initializeViews(TweetViewHolder holder, View convertView) {
-        holder.ivCoverImage = (ImageView) convertView.findViewById(R.id.ivCoverImage);
+//        holder.ivCoverImage = (ImageView) convertView.findViewById(R.id.ivCoverImage);
         holder.ivProfileImage = (ImageView) convertView.findViewById(R.id.ivProfileImg);
         holder.ivMedia = (ImageView) convertView.findViewById(R.id.ivMedia);
 
@@ -95,8 +95,8 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         holder.ivProfileImage.setImageResource(android.R.color.transparent);
         imageLoader.displayImage(mTweet.getUser().getProfileImageUrl(), holder.ivProfileImage);
 
-        holder.ivCoverImage.setImageResource(android.R.color.transparent);
-        imageLoader.displayImage(mTweet.getUser().getCoverImageUrl(), holder.ivCoverImage);
+//        holder.ivCoverImage.setImageResource(android.R.color.transparent);
+//        imageLoader.displayImage(mTweet.getUser().getCoverImageUrl(), holder.ivCoverImage);
 
         if (mTweet.hasMedia()) {
             holder.ivMedia.setVisibility(View.VISIBLE);
@@ -121,7 +121,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
     }
 
     private class TweetViewHolder {
-        public ImageView ivCoverImage;
+//        public ImageView ivCoverImage;
         public ImageView ivProfileImage;
         public ImageView ivMedia;
         public TextView tvFullName;

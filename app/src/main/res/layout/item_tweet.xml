@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="blocksDescendants"
-    android:background="@color/twitter_white">
+    android:background="@color/twitter_light_gray">
     <!--TODO textviews with links should be clickable to detail-->
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        android:id="@+id/ivCoverImage"
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/ic_launcher"-->
+        <!--android:id="@+id/ivCoverImage"-->
 
-        android:cropToPadding="false"
-        android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/transparentHolder" />
+        <!--android:cropToPadding="false"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignBottom="@+id/transparentHolder" />-->
 
     <RelativeLayout
         android:layout_width="wrap_content"

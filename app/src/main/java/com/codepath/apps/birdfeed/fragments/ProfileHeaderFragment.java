@@ -29,6 +29,7 @@ public class ProfileHeaderFragment extends Fragment {
     private TextView tvHeaderFollowerCount;
     private TextView tvHeaderFollowingCount;
     private ImageView ivHeaderProfile;
+    private ImageView ivHeaderBackground;
 
     public ProfileHeaderFragment() {
     }
@@ -70,11 +71,12 @@ public class ProfileHeaderFragment extends Fragment {
         tvHeaderFollowerCount = (TextView) view.findViewById(R.id.tvHeaderFollowerCount);
         tvHeaderFollowingCount = (TextView) view.findViewById(R.id.tvHeaderFollowingCount);
         ivHeaderProfile = (ImageView) view.findViewById(R.id.ivHeaderProfile);
+        ivHeaderBackground = (ImageView) view.findViewById(R.id.ivHeaderBackground);
     }
 
     private void populateViews() {
         tvHeaderFullName.setText(currentUser.getName());
-        tvHeaderUsername.setText(currentUser.getUsername());
+        tvHeaderUsername.setText("@" + currentUser.getUsername());
         tvHeaderTagline.setText(currentUser.getTagline());
         tvHeaderTweetCount.setText(currentUser.getPrettyTweetCount());
         tvHeaderFollowerCount.setText(currentUser.getPrettyFollowerCount());
@@ -83,6 +85,8 @@ public class ProfileHeaderFragment extends Fragment {
         ImageLoader imageLoader = ImageLoader.getInstance();
         ivHeaderProfile.setImageResource(android.R.color.transparent);
         imageLoader.displayImage(currentUser.getProfileImageUrl(), ivHeaderProfile);
+        ivHeaderBackground.setImageResource(android.R.color.transparent);
+        imageLoader.displayImage(currentUser.getCoverImageUrl(), ivHeaderBackground);
     }
 
     public interface ProfileListener {
