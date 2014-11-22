@@ -19,16 +19,18 @@ __Required:__
   * User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
   * Profile view should include that user's timeline
 
+_Optional:_
+* Optional: User can view following / followers list through the profile
+* Advanced: User can "reply" to any tweet on their home timeline
+  * The user that wrote the original tweet is automatically "@" replied in compose
+
 - - -
 
 ### To complete...
 
 _Optional:_
-* Optional: User can view following / followers list through the profile
 * Advanced: Robust error handling, check if internet is available, handle error cases, network failures
 * Advanced: When a network request is sent, user sees an indeterminate progress indicator
-* Advanced: User can "reply" to any tweet on their home timeline
-  * The user that wrote the original tweet is automatically "@" replied in compose
 * Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
   * Advanced: User can take favorite (and unfavorite) or reweet actions on a tweet
 * Advanced: Improve the user interface and theme the app to feel twitter branded

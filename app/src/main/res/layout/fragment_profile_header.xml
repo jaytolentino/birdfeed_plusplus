@@ -96,7 +96,8 @@
                 android:textColor="@color/twitter_gray"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tvHeaderTweetCount"
-                android:layout_alignLeft="@+id/ivHeaderProfile" />
+                android:layout_alignLeft="@+id/ivHeaderProfile"
+                android:minWidth="@dimen/count_min_width" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +108,8 @@
                 android:textColor="@color/twitter_blue"
                 android:layout_below="@+id/tvHeaderTagline"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:minWidth="@dimen/count_min_width" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +118,8 @@
                 android:id="@+id/tvHeaderTitleFollowingCount"
                 android:textColor="@color/twitter_gray"
                 android:layout_below="@+id/tvHeaderFollowingCount"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:minWidth="@dimen/count_min_width" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +132,8 @@
                 android:layout_alignLeft="@+id/tvHeaderTitleFollowingCount"
                 android:layout_alignStart="@+id/tvHeaderTitleFollowingCount"
                 android:layout_alignRight="@+id/tvHeaderTitleFollowingCount"
-                android:layout_alignEnd="@+id/tvHeaderTitleFollowingCount" />
+                android:layout_alignEnd="@+id/tvHeaderTitleFollowingCount"
+                android:minWidth="@dimen/count_min_width" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,7 +143,8 @@
                 android:textColor="@color/twitter_gray"
                 android:layout_alignTop="@+id/tvHeaderTitleFollowingCount"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:minWidth="@dimen/count_min_width" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -152,8 +157,10 @@
                 android:layout_below="@+id/tvHeaderTagline"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/tvHeaderFollowingCount"
                 android:layout_alignLeft="@+id/tvHeaderTitleFollowerCount"
-                android:layout_alignStart="@+id/tvHeaderTitleFollowerCount" />
+                android:layout_alignStart="@+id/tvHeaderTitleFollowerCount"
+                android:minWidth="@dimen/count_min_width" />
 
         </RelativeLayout>
 

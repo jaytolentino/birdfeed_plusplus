@@ -34,6 +34,10 @@ public class TwitterClient extends OAuthBaseClient {
             = "Zow9hfIn4b3CSqiJuFPf9tUaoT5wjyePigUH8LmNteBVsXeZwD";
 	public static final String REST_CALLBACK_URL = "oauth://cpbasictweet";
 
+    public static enum USER_TYPE {
+        FOLLOWING, FOLLOWERS
+    }
+
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
@@ -147,6 +151,21 @@ public class TwitterClient extends OAuthBaseClient {
         params.put("user_id", userIds);
 
         Log.i("INFO", "GET " + apiUrl + ", USER_ID: " + userIds.get(0));
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUsers(USER_TYPE type, String uid, AsyncHttpResponseHandler handler) {
+        String apiUrl = "";
+        if (type == USER_TYPE.FOLLOWERS) {
+            apiUrl = getApiUrl("followers/list.json");
+        } else if (type == USER_TYPE.FOLLOWING) {
+            apiUrl = getApiUrl("friends/list.json");
+        }
+        RequestParams params = new RequestParams();
+        params.put("user_id", uid);
+        params.put("count", "40");
+
+        Log.i("INFO", "GET " + apiUrl + ", USER_ID: " + uid);
         client.get(apiUrl, params, handler);
     }
 }

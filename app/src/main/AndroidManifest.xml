@@ -12,8 +12,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
-        android:name=".networking.TwitterApplication"
+        android:name="com.codepath.apps.birdfeed.networking.TwitterApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +28,7 @@
             android:value="1" />
 
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.codepath.apps.birdfeed.activities.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,16 +47,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.FeedActivity"
+            android:name="com.codepath.apps.birdfeed.activities.FeedActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activities.TweetDetailActivity"
+            android:name="com.codepath.apps.birdfeed.activities.TweetDetailActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".activities.ProfileActivity"
+            android:name="com.codepath.apps.birdfeed.activities.ProfileActivity"
             android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name="com.codepath.apps.birdfeed.activities.UserListActivity"
+            android:label="@string/title_activity_user_list" >
         </activity>
     </application>
 

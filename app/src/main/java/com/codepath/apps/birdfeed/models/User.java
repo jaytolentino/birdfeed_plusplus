@@ -7,10 +7,12 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,6 +77,18 @@ public class User extends Model implements Serializable {
         return user;
     }
 
+    public static List<User> fromArray(JSONArray jsonArray) {
+        List<User> users = new ArrayList<User>();
+        for (int i = 0; i < jsonArray.length(); ++i) {
+            try {
+                users.add(User.fromJSON((JSONObject) jsonArray.get(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return users;
+    }
+
     public String getName() {
         return name;
     }
@@ -134,4 +148,29 @@ public class User extends Model implements Serializable {
             return Integer.toString(base);
         }
     }
+
+//    /* PARCELABLE METHODS */
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeString(name);
+//        parcel.writeLong(uid);
+//        parcel.writeString(username);
+//        parcel.writeString(profileImageUrl);
+//        parcel.writeString(coverImageUrl);
+//    }
+//
+//    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+//        public User createFromParcel(Parcel in) {
+//            return new User(in);
+//        }
+//
+//        public User[] newArray(int size) {
+//            return new User[size];
+//        }
+//    };
 }

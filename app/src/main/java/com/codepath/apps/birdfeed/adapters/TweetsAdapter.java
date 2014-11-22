@@ -38,7 +38,6 @@ import java.util.List;
  * Created by jay on 10/17/14.
  */
 public class TweetsAdapter extends ArrayAdapter<Tweet> {
-    private Tweet mTweet;
     private Context mContext;
 
     public TweetsAdapter(Context context, List<Tweet> tweets) {
@@ -48,7 +47,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        mTweet = getItem(position);
+        Tweet tweet = getItem(position);
         TweetViewHolder holder;
         if (convertView == null) {
             holder = new TweetViewHolder();
@@ -60,8 +59,8 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         else {
             holder = (TweetViewHolder) convertView.getTag();
         }
-        setViewContent(holder);
-        setProfileOnClick(holder);
+        setViewContent(tweet, holder);
+        setProfileOnClick(tweet, holder);
         return convertView;
     }
 
@@ -76,39 +75,39 @@ public class TweetsAdapter extends ArrayAdapter<Tweet> {
         holder.tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
     }
 
-    private void setViewContent(TweetViewHolder holder) {
-        setImageViews(holder);
+    private void setViewContent(Tweet tweet, TweetViewHolder holder) {
+        setImageViews(tweet, holder);
 
-        holder.tvFullName.setText(mTweet.getUser().getName());
+        holder.tvFullName.setText(tweet.getUser().getName());
 
-        holder.tvUsername.setText("@" + mTweet.getUser().getUsername());
+        holder.tvUsername.setText("@" + tweet.getUser().getUsername());
         holder.tvUsername.setTextColor(getContext().getResources().getColor(R.color.gray_font));
 
-        holder.tvBody.setText(mTweet.getBody());
+        holder.tvBody.setText(tweet.getBody());
 
-        holder.tvTimestamp.setText(mTweet.getRelativeTimetamp());
+        holder.tvTimestamp.setText(tweet.getRelativeTimetamp());
         holder.tvTimestamp.setTextColor(Color.LTGRAY);
     }
 
-    private void setImageViews(TweetViewHolder holder) {
+    private void setImageViews(Tweet tweet, TweetViewHolder holder) {
         ImageLoader imageLoader = ImageLoader.getInstance();
         holder.ivProfileImage.setImageResource(android.R.color.transparent);
-        imageLoader.displayImage(mTweet.getUser().getProfileImageUrl(), holder.ivProfileImage);
+        imageLoader.displayImage(tweet.getUser().getProfileImageUrl(), holder.ivProfileImage);
 
 //        holder.ivCoverImage.setImageResource(android.R.color.transparent);
 //        imageLoader.displayImage(mTweet.getUser().getCoverImageUrl(), holder.ivCoverImage);
 
-        if (mTweet.hasMedia()) {
+        if (tweet.hasMedia()) {
             holder.ivMedia.setVisibility(View.VISIBLE);
             holder.ivMedia.setImageResource(android.R.color.transparent);
-            imageLoader.displayImage(mTweet.getMediaUrl(), holder.ivMedia);
+            imageLoader.displayImage(tweet.getMediaUrl(), holder.ivMedia);
         } else {
             holder.ivMedia.setVisibility(View.GONE);
         }
     }
 
-    private void setProfileOnClick(TweetViewHolder holder) {
-        final String uid = Long.toString(mTweet.getUser().getUid());
+    private void setProfileOnClick(Tweet tweet, TweetViewHolder holder) {
+        final String uid = Long.toString(tweet.getUser().getUid());
         View.OnClickListener clickToProfile = new View.OnClickListener() {
             @Override
             public void onClick(View view) {

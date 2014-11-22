@@ -43,7 +43,6 @@ public abstract class AbstractTweetListFragment extends Fragment {
         tweets = new ArrayList<Tweet>();
         aTweets = new TweetsAdapter(getActivity(), tweets);
         client = TwitterApplication.getRestClient();
-        super.onCreate(savedInstanceState);
     }
 
     @Override

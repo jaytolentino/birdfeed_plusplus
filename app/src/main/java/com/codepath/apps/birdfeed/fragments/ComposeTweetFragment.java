@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -57,6 +58,9 @@ public class ComposeTweetFragment extends DialogFragment {
         }
         if (getArguments().containsKey("tweet")) {
             tweet = (Tweet) getArguments().get("tweet");
+            etComposeTweet.setText("@" + tweet.getUser().getUsername() + " ");
+            int position = etComposeTweet.length();
+            Selection.setSelection(etComposeTweet.getText(), position);
             btnSendTweet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

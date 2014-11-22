@@ -21,6 +21,7 @@ public class ProfileActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         if (getIntent().hasExtra(USER)){
             mUser = (User) getIntent().getSerializableExtra(USER);
+            setTitle(getString(R.string.title_profile));
         }
         setContentView(R.layout.activity_profile);
     }

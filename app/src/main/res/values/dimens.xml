@@ -14,7 +14,9 @@
     <dimen name="textsize_medium">16sp</dimen>
     <dimen name="textsize_xlarge">24sp</dimen>
     <dimen name="image_profile_large">50dp</dimen>
+    <dimen name="image_profile_grid">75dp</dimen>
     <dimen name="padding_xxlarge">25dp</dimen>
     <dimen name="padding_3xlarge">30dp</dimen>
+    <dimen name="count_min_width">80dp</dimen>
 
 </resources>
