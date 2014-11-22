@@ -43,6 +43,7 @@ public class TweetDetailActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_detail);
+        setTitle("Tweet Details");
         tweet = (Tweet) getIntent().getSerializableExtra("tweet");
 
         initailizeMemberVariables();

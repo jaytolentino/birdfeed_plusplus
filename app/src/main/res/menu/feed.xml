@@ -5,7 +5,7 @@
     <item android:id="@+id/action_compose"
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/menu_compose"
-        android:title="Write new Tweet"
+        android:title="@string/menu_write_tweet"
         android:onClick="onComposeTweet"
         />
     <item android:id="@+id/action_profile"

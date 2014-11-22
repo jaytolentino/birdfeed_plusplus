@@ -32,5 +32,6 @@
     <string name="sample_tagline">Young and restless software engineer in NYC. Additionally - avid ice cream lover and crossfit enthusiast</string>
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_profile">Profile</string>
+    <string name="menu_write_tweet">Write a Tweet</string>
 
 </resources>
