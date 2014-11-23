@@ -32,6 +32,9 @@ public class TweetDetailActivity extends BaseActivity
     private ImageView ivDetailProfilePic;
     private ImageView ivDetailBackground;
     private ImageView ivDetailMedia;
+    private ImageView ivFavorite;
+    private ImageView ivRetweet;
+
     private TextView tvDetailName;
     private TextView tvDetailUsername;
     private TextView tvDetailTweet;
@@ -50,6 +53,8 @@ public class TweetDetailActivity extends BaseActivity
         setImageViews();
         setTextViews();
         setProfileOnClick();
+        setRetweetOnClick();
+        setFavoriteOnClick();
     }
 
     @Override
@@ -86,6 +91,8 @@ public class TweetDetailActivity extends BaseActivity
         ivDetailProfilePic = (ImageView) findViewById(R.id.ivDetailProfilePic);
         ivDetailBackground = (ImageView) findViewById(R.id.ivDetailBackground);
         ivDetailMedia = (ImageView) findViewById(R.id.ivDetailMedia);
+        ivFavorite = (ImageView) findViewById(R.id.ivFavorite);
+        ivRetweet = (ImageView) findViewById(R.id.ivRetweet);
 
         tvDetailName = (TextView) findViewById(R.id.tvDetailName);
         tvDetailUsername = (TextView) findViewById(R.id.tvDetailUsername);
@@ -142,6 +149,35 @@ public class TweetDetailActivity extends BaseActivity
         tvDetailUsername.setOnClickListener(clickToProfile);
         tvDetailName.setOnClickListener(clickToProfile);
         ivDetailProfilePic.setOnClickListener(clickToProfile);
+    }
+
+    private void setRetweetOnClick() {
+        ivRetweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TweetDetailActivity.this, "Sending Retweet...", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setFavoriteOnClick() {
+        ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TweetDetailActivity.this, "Favoriting tweet...", Toast.LENGTH_SHORT).show();
+                TwitterApplication.getRestClient().postFavorite(tweet.getTweetId(), new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                        Toast.makeText(TweetDetailActivity.this, "Error favoriting tweet.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void getProfileInfo(String uid) {
