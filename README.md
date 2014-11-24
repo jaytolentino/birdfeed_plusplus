@@ -24,6 +24,8 @@ _Optional:_
 * Advanced: User can "reply" to any tweet on their home timeline
   * The user that wrote the original tweet is automatically "@" replied in compose
 * Advanced: Improve the user interface and theme the app to feel twitter branded
+* Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
+  * Advanced: User can take favorite (and unfavorite) or reweet actions on a tweet
 
 - - -
 
@@ -32,6 +34,4 @@ _Optional:_
 _Optional:_
 * Advanced: Robust error handling, check if internet is available, handle error cases, network failures
 * Advanced: When a network request is sent, user sees an indeterminate progress indicator
-* Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
-  * Advanced: User can take favorite (and unfavorite) or reweet actions on a tweet
 * Advanced: User can search for tweets matching a particular query and see results
