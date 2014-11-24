@@ -23,6 +23,7 @@ _Optional:_
 * Optional: User can view following / followers list through the profile
 * Advanced: User can "reply" to any tweet on their home timeline
   * The user that wrote the original tweet is automatically "@" replied in compose
+* Advanced: Improve the user interface and theme the app to feel twitter branded
 
 - - -
 
@@ -33,6 +34,4 @@ _Optional:_
 * Advanced: When a network request is sent, user sees an indeterminate progress indicator
 * Advanced: User can click on a tweet to be taken to a "detail view" of that tweet
   * Advanced: User can take favorite (and unfavorite) or reweet actions on a tweet
-* Advanced: Improve the user interface and theme the app to feel twitter branded
 * Advanced: User can search for tweets matching a particular query and see results
-* Bonus: User can view their direct messages (or send new ones)

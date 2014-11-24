@@ -16,6 +16,7 @@ import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
 import com.codepath.apps.birdfeed.models.Tweet;
 import com.codepath.apps.birdfeed.models.User;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
+import com.codepath.apps.birdfeed.networking.TwitterClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -29,6 +30,10 @@ import java.util.ArrayList;
 public class TweetDetailActivity extends BaseActivity
         implements ComposeTweetFragment.RefreshTimelineListener {
     private Tweet tweet;
+    private TwitterClient client;
+    private boolean favorited;
+    private boolean retweeted;
+
     private ImageView ivDetailProfilePic;
     private ImageView ivDetailBackground;
     private ImageView ivDetailMedia;
@@ -48,6 +53,9 @@ public class TweetDetailActivity extends BaseActivity
         setContentView(R.layout.activity_tweet_detail);
         setTitle("Tweet Details");
         tweet = (Tweet) getIntent().getSerializableExtra("tweet");
+        client = TwitterApplication.getRestClient();
+        favorited = false;
+        retweeted = false;
 
         initailizeMemberVariables();
         setImageViews();
@@ -155,29 +163,39 @@ public class TweetDetailActivity extends BaseActivity
         ivRetweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TweetDetailActivity.this, "Sending Retweet...", Toast.LENGTH_SHORT).show();
+                if (retweeted) {
+                    Toast.makeText(TweetDetailActivity.this, "Already retweeted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(TweetDetailActivity.this, "Reweeting tweet...", Toast.LENGTH_SHORT).show();
+                    sendRetweetApiCall(tweet.getTweetId());
+                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                    ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_retweet_selected));
+                    retweeted = true;
+                }
             }
         });
     }
 
     private void setFavoriteOnClick() {
-        ivFavorite.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TweetDetailActivity.this, "Favoriting tweet...", Toast.LENGTH_SHORT).show();
-                TwitterApplication.getRestClient().postFavorite(tweet.getTweetId(), new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(JSONObject jsonObject) {
-                        Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable, JSONObject jsonObject) {
-                        Toast.makeText(TweetDetailActivity.this, "Error favoriting tweet.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (favorited) {
+                    Toast.makeText(TweetDetailActivity.this, "Unfavoriting tweet...", Toast.LENGTH_SHORT).show();
+                    sendUnfavoriteApiCall(tweet.getTweetId());
+                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                    ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite));
+                    favorited = true;
+                } else {
+                    Toast.makeText(TweetDetailActivity.this, "Favoriting tweet...", Toast.LENGTH_SHORT).show();
+                    sendFavoriteApiCall(tweet.getTweetId());
+                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                    ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite_selected));
+                    favorited = true;
+                }
             }
-        });
+        };
+        ivFavorite.setOnClickListener(listener);
     }
 
     private void getProfileInfo(String uid) {
@@ -200,6 +218,68 @@ public class TweetDetailActivity extends BaseActivity
             @Override
             public void onFailure(Throwable throwable, JSONArray jsonArray) {
                 Log.d("debug", throwable.getMessage());
+            }
+        });
+    }
+
+    private void sendFavoriteApiCall(long tweetId) {
+        client.postFavorite(tweetId, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Error favoriting tweet.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void handleFailureMessage(Throwable throwable, String s) {
+                super.handleFailureMessage(throwable, s);
+                Log.d("debug", throwable.getMessage() + " - STRING: "+ s);
+            }
+        });
+    }
+
+    private void sendUnfavoriteApiCall(long tweetId) {
+        client.postFavoriteDestroy(tweetId, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Error unfavoriting tweet.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void handleFailureMessage(Throwable throwable, String s) {
+                super.handleFailureMessage(throwable, s);
+                Log.d("debug", throwable.getMessage() + " - STRING: " + s);
+            }
+        });
+    }
+
+    private void sendRetweetApiCall(long tweetId) {
+        client.postRetweet(tweetId, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                Toast.makeText(TweetDetailActivity.this, "Error retweeting", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void handleFailureMessage(Throwable throwable, String s) {
+                super.handleFailureMessage(throwable, s);
+                Log.d("debug", throwable.getMessage() + " - STRING: " + s);
             }
         });
     }

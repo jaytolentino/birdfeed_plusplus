@@ -1,7 +1,6 @@
 package com.codepath.apps.birdfeed.networking;
 
 import org.scribe.builder.api.Api;
-import org.scribe.builder.api.FlickrApi;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
@@ -12,20 +11,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/*
- * 
- * This is the object responsible for communicating with a REST API. 
- * Specify the constants below to change the API being communicated with.
- * See a full list of supported API classes: 
- *   https://github.com/fernandezpablo85/scribe-java/tree/master/src/main/java/org/scribe/builder/api
- * Key and Secret are provided by the developer site for the given API i.e dev.twitter.com
- * Add methods for each relevant endpoint in the API.
- * 
- * NOTE: You may want to rename this object based on the service i.e TwitterClient or FlickrClient
- * 
- */
 public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class;
 	public static final String REST_URL = "https://api.twitter.com/1.1";
@@ -173,8 +159,26 @@ public class TwitterClient extends OAuthBaseClient {
         String apiUrl = "favorites/create.json";
         RequestParams params = new RequestParams();
         params.put("id", Long.toString(tweetId));
+        params.put("include_entities", "false");
 
         Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
         client.post(apiUrl, params, handler);
+    }
+
+    public void postFavoriteDestroy(long tweetId, AsyncHttpResponseHandler handler) {
+        String apiUrl = "favorites/destroy.json";
+        RequestParams params = new RequestParams();
+        params.put("id", Long.toString(tweetId));
+        params.put("include_entities", "false");
+
+        Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
+        client.post(apiUrl, params, handler);
+    }
+
+    public void postRetweet(long tweetId, AsyncHttpResponseHandler handler) {
+        String apiUrl = "statuses/retweet/" + tweetId + ".json";
+
+        Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
+        client.post(apiUrl, null, handler);
     }
 }
