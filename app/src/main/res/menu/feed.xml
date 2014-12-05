@@ -2,13 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.codepath.apps.birdfeed.activities.FeedActivity" >
-    <item android:id="@+id/action_compose"
+    <item android:id="@+id/action_search"
+        android:orderInCategory="1"
+        android:title="Search"
+        android:icon="@drawable/abc_ic_search"
         app:showAsAction="ifRoom|collapseActionView"
-        android:icon="@drawable/menu_compose"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item android:id="@+id/action_compose"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@drawable/ic_pencil"
         android:title="@string/menu_write_tweet"
         android:onClick="onComposeTweet"
         />
     <item android:id="@+id/action_profile"
+        android:orderInCategory="3"
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@drawable/menu_profile"
         android:title="View Profile"

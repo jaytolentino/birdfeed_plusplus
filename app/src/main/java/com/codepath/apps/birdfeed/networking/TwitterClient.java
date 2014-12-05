@@ -156,29 +156,35 @@ public class TwitterClient extends OAuthBaseClient {
     }
 
     public void postFavorite(long tweetId, AsyncHttpResponseHandler handler) {
-        String apiUrl = "favorites/create.json";
+        String apiUrl = getApiUrl("favorites/create.json");
         RequestParams params = new RequestParams();
         params.put("id", Long.toString(tweetId));
-        params.put("include_entities", "false");
-
         Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
         client.post(apiUrl, params, handler);
     }
 
     public void postFavoriteDestroy(long tweetId, AsyncHttpResponseHandler handler) {
-        String apiUrl = "favorites/destroy.json";
+        String apiUrl = getApiUrl("favorites/destroy.json");
         RequestParams params = new RequestParams();
         params.put("id", Long.toString(tweetId));
-        params.put("include_entities", "false");
 
         Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
         client.post(apiUrl, params, handler);
     }
 
     public void postRetweet(long tweetId, AsyncHttpResponseHandler handler) {
-        String apiUrl = "statuses/retweet/" + tweetId + ".json";
+        String apiUrl = getApiUrl("statuses/retweet/" + tweetId + ".json");
 
         Log.i("INFO", "POST " + apiUrl + ", TWEET_ID: " + tweetId);
         client.post(apiUrl, null, handler);
+    }
+
+    public void getSearch(String query, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("search/tweets.json");
+        RequestParams params = new RequestParams();
+        params.put("q", query);
+
+        Log.i("INFO", "GET " + apiUrl + ", QUERY: " + query);
+        client.get(apiUrl, params, handler);
     }
 }

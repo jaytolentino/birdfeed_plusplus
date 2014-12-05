@@ -168,9 +168,6 @@ public class TweetDetailActivity extends BaseActivity
                 } else {
                     Toast.makeText(TweetDetailActivity.this, "Reweeting tweet...", Toast.LENGTH_SHORT).show();
                     sendRetweetApiCall(tweet.getTweetId());
-                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                    ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_retweet_selected));
-                    retweeted = true;
                 }
             }
         });
@@ -183,15 +180,9 @@ public class TweetDetailActivity extends BaseActivity
                 if (favorited) {
                     Toast.makeText(TweetDetailActivity.this, "Unfavoriting tweet...", Toast.LENGTH_SHORT).show();
                     sendUnfavoriteApiCall(tweet.getTweetId());
-                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                    ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite));
-                    favorited = true;
                 } else {
                     Toast.makeText(TweetDetailActivity.this, "Favoriting tweet...", Toast.LENGTH_SHORT).show();
                     sendFavoriteApiCall(tweet.getTweetId());
-                    Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                    ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite_selected));
-                    favorited = true;
                 }
             }
         };
@@ -228,6 +219,8 @@ public class TweetDetailActivity extends BaseActivity
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite_selected));
+                favorited = true;
             }
 
             @Override
@@ -249,6 +242,8 @@ public class TweetDetailActivity extends BaseActivity
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                ivFavorite.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_favorite));
+                favorited = false;
             }
 
             @Override
@@ -269,6 +264,8 @@ public class TweetDetailActivity extends BaseActivity
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 Toast.makeText(TweetDetailActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                ivRetweet.setImageDrawable(getResources().getDrawable(R.drawable.ic_twitter_retweet_selected));
+                retweeted = true;
             }
 
             @Override

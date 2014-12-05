@@ -4,18 +4,28 @@ package com.codepath.apps.birdfeed.activities;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
 import com.codepath.apps.birdfeed.fragments.HomeTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.SupportFragmentTabListener;
 import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
+import com.codepath.apps.birdfeed.networking.TwitterApplication;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
 
 public class FeedActivity extends BaseActivity
         implements ComposeTweetFragment.RefreshTimelineListener {
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,25 @@ public class FeedActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.feed, menu);
+//        menu.findItem(R.id.action_profile).setIcon() TODO make profile picture the profile icon
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    search(s);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    return false;
+                }
+            });
+        }
+
         return true;
     }
 
@@ -88,5 +117,20 @@ public class FeedActivity extends BaseActivity
         AbstractTweetListFragment abstractTweetListFragment = (AbstractTweetListFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
         abstractTweetListFragment.refreshTimeline();
+    }
+
+    private void search(String query) {
+        TwitterApplication.getRestClient().getSearch(query, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                super.onSuccess(jsonObject);
+                Log.d("debug", jsonObject.toString());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable, JSONObject jsonObject) {
+                super.onFailure(throwable, jsonObject);
+            }
+        });
     }
 }
