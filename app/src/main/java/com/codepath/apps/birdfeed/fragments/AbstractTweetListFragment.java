@@ -1,6 +1,11 @@
 package com.codepath.apps.birdfeed.fragments;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.activities.BaseActivity;
@@ -55,8 +61,25 @@ public abstract class AbstractTweetListFragment extends Fragment {
         setupTweetScroll();
         setupTweetClick();
         setupSwipeContainer(v);
-        populateTimeline();
+        if (isNetworkAvailable()) {
+            populateTimeline();
+        } else {
+            displayConnectivityAlert();
+        }
         return v;
+    }
+
+    protected void displayConnectivityAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Network Unavailable")
+                .setMessage("Check network connectivity to load feed")
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .create().show();
     }
 
     protected void populateTimeline() {
@@ -137,7 +160,14 @@ public abstract class AbstractTweetListFragment extends Fragment {
         }
     }
 
-    protected class SearchResultsJsonHandler extends JsonHttpResponseHandler {
+    protected boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public class SearchResultsJsonHandler extends JsonHttpResponseHandler {
         @Override
         public void onSuccess(int i, JSONObject jsonObject) {
             try {

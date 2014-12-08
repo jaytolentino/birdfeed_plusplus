@@ -3,13 +3,28 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.birdfeed.activities.SearchActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_search_title"
+        android:id="@+id/tvResultsTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/padding_large"
+        android:textSize="@dimen/textsize_medium"
+        android:background="@color/twitter_blue"
+        android:textColor="@color/twitter_white" />
+
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:name="com.codepath.apps.birdfeed.fragments.SearchResultsFragment"
         android:id="@+id/frSearchResults"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        tools:layout="@layout/fragment_tweets_list" />
-
+        tools:layout="@layout/fragment_tweets_list"
+        android:layout_below="@+id/tvResultsTitle" />
 </RelativeLayout>

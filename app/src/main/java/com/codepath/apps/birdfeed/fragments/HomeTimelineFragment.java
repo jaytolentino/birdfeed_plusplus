@@ -30,8 +30,12 @@ public class HomeTimelineFragment extends AbstractTweetListFragment {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                Log.d("debug", "Began loading endless scroll");
-                client.getHomeTimeline(earliestId, new ScrollRefreshJsonHandler());
+                if (isNetworkAvailable()) {
+                    Log.d("debug", "Began loading endless scroll");
+                    client.getHomeTimeline(earliestId, new ScrollRefreshJsonHandler());
+                } else {
+                    displayConnectivityAlert();
+                }
             }
         });
     }
@@ -43,10 +47,14 @@ public class HomeTimelineFragment extends AbstractTweetListFragment {
             @Override
             public void onRefresh() {
                 if (!aTweets.isEmpty()) {
-                    refreshTimeline();
+                    if (isNetworkAvailable()) {
+                        refreshTimeline();
 //                    mostRecentId = String.valueOf(aTweets.getItem(0).getTweetId());
 //                    client.getNewHomeItems(mostRecentId, new RefreshWithNewItemsJsonHandler(tweets));
-                    swipeContainer.setRefreshing(false);
+                        swipeContainer.setRefreshing(false);
+                    } else {
+                        displayConnectivityAlert();
+                    }
                 }
             }
         });

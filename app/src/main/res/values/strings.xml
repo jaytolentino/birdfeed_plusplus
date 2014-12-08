@@ -34,5 +34,6 @@
     <string name="title_profile">Profile</string>
     <string name="menu_write_tweet">Write a Tweet</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="default_search_title">Results for</string>
 
 </resources>

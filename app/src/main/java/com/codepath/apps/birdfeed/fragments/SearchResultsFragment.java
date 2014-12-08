@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
+import com.codepath.apps.birdfeed.networking.TwitterApplication;
 
 public class SearchResultsFragment extends AbstractTweetListFragment {
 
@@ -33,6 +34,10 @@ public class SearchResultsFragment extends AbstractTweetListFragment {
     protected void populateTimeline() {
         super.populateTimeline();
         client.getSearch(mQuery, new SearchResultsJsonHandler());
+    }
+
+    public void populateTimeline(String s) {
+        client.getSearch(s, new SearchResultsJsonHandler());
     }
 
     @Override
