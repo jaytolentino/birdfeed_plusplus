@@ -62,6 +62,10 @@
             android:name="com.codepath.apps.birdfeed.activities.UserListActivity"
             android:label="@string/title_activity_user_list" >
         </activity>
+        <activity
+            android:name="com.codepath.apps.birdfeed.activities.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>

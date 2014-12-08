@@ -1,23 +1,63 @@
 package com.codepath.apps.birdfeed.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.codepath.apps.birdfeed.R;
+import com.codepath.apps.birdfeed.adapters.EndlessScrollListener;
 
 public class SearchResultsFragment extends AbstractTweetListFragment {
 
+    private SearchListener mListener;
+    private String mQuery;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof SearchListener) {
+            mListener = (SearchListener) activity;
+        } else {
+            throw new ClassCastException(activity.toString()
+                    + " must implement SearchResultsFragment.SearchListener");
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mQuery = mListener.getQuery();
+    }
+
     @Override
     protected void populateTimeline() {
-
+        super.populateTimeline();
+        client.getSearch(mQuery, new SearchResultsJsonHandler());
     }
 
     @Override
     protected void setupTweetScroll() {
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                client.getSearch(earliestId, mQuery, new ScrollRefreshJsonHandler());
+            }
+        });
+    }
 
+    @Override
+    protected void setupSwipeContainer(View view) {
+        super.setupSwipeContainer(view);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!aTweets.isEmpty()) {
+                    refreshTimeline();
+                    // TODO can replace with getNewSearchItems to only get new tweets
+                    swipeContainer.setRefreshing(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -27,6 +67,11 @@ public class SearchResultsFragment extends AbstractTweetListFragment {
 
     @Override
     public void refreshTimeline() {
+        clearAll();
+        populateTimeline();
+    }
 
+    public static interface SearchListener {
+        public String getQuery();
     }
 }

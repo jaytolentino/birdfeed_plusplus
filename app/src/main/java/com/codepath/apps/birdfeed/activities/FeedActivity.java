@@ -1,6 +1,5 @@
 package com.codepath.apps.birdfeed.activities;
 
-
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import com.codepath.apps.birdfeed.R;
 import com.codepath.apps.birdfeed.fragments.ComposeTweetFragment;
 import com.codepath.apps.birdfeed.fragments.HomeTimelineFragment;
 import com.codepath.apps.birdfeed.fragments.MentionsTimelineFragment;
+import com.codepath.apps.birdfeed.fragments.SearchResultsFragment;
 import com.codepath.apps.birdfeed.fragments.SupportFragmentTabListener;
 import com.codepath.apps.birdfeed.fragments.AbstractTweetListFragment;
 import com.codepath.apps.birdfeed.networking.TwitterApplication;
@@ -120,17 +120,8 @@ public class FeedActivity extends BaseActivity
     }
 
     private void search(String query) {
-        TwitterApplication.getRestClient().getSearch(query, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                super.onSuccess(jsonObject);
-                Log.d("debug", jsonObject.toString());
-            }
-
-            @Override
-            public void onFailure(Throwable throwable, JSONObject jsonObject) {
-                super.onFailure(throwable, jsonObject);
-            }
-        });
+        Intent searchResults = new Intent(this, SearchActivity.class);
+        searchResults.putExtra(SearchActivity.QUERY, query);
+        startActivity(searchResults);
     }
 }

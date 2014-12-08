@@ -33,5 +33,6 @@
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_profile">Profile</string>
     <string name="menu_write_tweet">Write a Tweet</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

@@ -22,6 +22,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.commons.collections4.ListUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +134,26 @@ public abstract class AbstractTweetListFragment extends Fragment {
         public void onFailure(Throwable throwable, String s) {
             Log.d("debug", throwable.toString());
             Log.d("debug", s);
+        }
+    }
+
+    protected class SearchResultsJsonHandler extends JsonHttpResponseHandler {
+        @Override
+        public void onSuccess(int i, JSONObject jsonObject) {
+            try {
+                aTweets.addAll(Tweet.fromJSONArray(jsonObject.getJSONArray("statuses")));
+                setEarliestId();
+                stopProgressBar();
+            } catch (JSONException e) {
+                Log.e("ERROR", e.toString());
+            }
+
+        }
+
+        @Override
+        public void onFailure(Throwable throwable, String s) {
+            Log.d("debug", throwable.toString());
+            Log.e("ERROR", s);
         }
     }
 
