@@ -29,3 +29,20 @@ _Optional:_
 * Advanced: User can search for tweets matching a particular query and see results
 * Advanced: Robust error handling, check if internet is available, handle error cases, network failures
 * Advanced: When a network request is sent, user sees an indeterminate progress indicator
+
+## Walkthroughs
+
+__Tabbed Feeds__
+<img src="birdfeed_plusplus_feeds.gif" width="300" />
+
+__Twitter Actions__
+<img src="birdfeed_plusplus_actions.gif" width="300" />
+
+__Network Connectivity Alert__
+<img src="birdfeed_plusplus_network.gif" width="300" />
+
+__Profiles__
+<img src="birdfeed_plusplus_profiles.gif" width="300" />
+
+__Search__
+<img src="birdfeed_plusplus_search.gif" width="300" />

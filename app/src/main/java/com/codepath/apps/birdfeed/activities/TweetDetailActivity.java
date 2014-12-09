@@ -137,6 +137,7 @@ public class TweetDetailActivity extends BaseActivity
     }
 
     public void toastSuccessfulReply() {
+        hideProgressBar();
         Toast.makeText(this, "Reply sent!", Toast.LENGTH_SHORT).show();
     }
 

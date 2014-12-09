@@ -15,28 +15,28 @@
         android:minHeight="@dimen/image_profile_grid"
         android:scaleType="centerCrop" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_fullname"-->
-        <!--android:id="@+id/tvFullName"-->
-        <!--android:layout_below="@+id/ivProfileImage"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:textSize="@dimen/textsize_small" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_fullname"
+        android:id="@+id/tvFullName"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/textsize_xsmall" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/sample_username"-->
-        <!--android:id="@+id/tvUsername"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_below="@+id/tvFullName"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:textColor="@color/twitter_gray"-->
-        <!--android:textSize="@dimen/textsize_small" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_username"
+        android:id="@+id/tvUsername"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvFullName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/twitter_gray"
+        android:textSize="@dimen/textsize_xsmall" />
 </RelativeLayout>

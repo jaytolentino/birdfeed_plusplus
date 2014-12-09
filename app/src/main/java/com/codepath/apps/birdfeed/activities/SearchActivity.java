@@ -30,14 +30,9 @@ public class SearchActivity extends BaseActivity
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-    }
-
-    @Override
-    public View onCreateView(String name, Context context, AttributeSet attrs) {
         setTitle("Search");
         TextView tvResultsTitle = (TextView) findViewById(R.id.tvResultsTitle);
         tvResultsTitle.setText("Results for \"" + mQuery + "\"");
-        return super.onCreateView(name, context, attrs);
     }
 
     @Override

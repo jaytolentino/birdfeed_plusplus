@@ -133,8 +133,7 @@ public class ComposeTweetFragment extends DialogFragment {
     }
 
     private void sendReply() {
-        String tweetOnly = etComposeTweet.getText().toString();
-        String tweetContent = "@" + tweet.getUser().getUsername() + " " + tweetOnly;
+        String tweetContent = etComposeTweet.getText().toString();
         ((BaseActivity) getActivity()).showProgressBar();
 
         client.postReplyTweet(tweetContent, tweet.getTweetId(), new JsonHttpResponseHandler() {
