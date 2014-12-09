@@ -32,17 +32,22 @@ _Optional:_
 
 ## Walkthroughs
 
-__Tabbed Feeds__
-<img src="birdfeed_plusplus_feeds.gif" width="300" />
+__Tabbed Feeds...__
+<br />
+<img src="/gif/birdfeed_plusplus_feeds.gif" width="300" />
 
-__Twitter Actions__
-<img src="birdfeed_plusplus_actions.gif" width="300" />
+__Twitter Actions...__
+<br />
+<img src="/gif/birdfeed_plusplus_actions.gif" width="300" />
 
-__Network Connectivity Alert__
-<img src="birdfeed_plusplus_network.gif" width="300" />
+__Network Connectivity Alert...__
+<br />
+<img src="/gif/birdfeed_plusplus_network.gif" width="300" />
 
-__Profiles__
-<img src="birdfeed_plusplus_profiles.gif" width="300" />
+__Profiles...__
+<br />
+<img src="/gif/birdfeed_plusplus_profiles.gif" width="300" />
 
-__Search__
-<img src="birdfeed_plusplus_search.gif" width="300" />
+__Search...__
+<br />
+<img src="/gif/birdfeed_plusplus_search.gif" width="300" />
